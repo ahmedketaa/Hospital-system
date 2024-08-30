@@ -1,14 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "" });
+
+  const validateEmail = (email) => {
+    if (!email) {
+      return "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      return "Email address is invalid";
+    }
+    return "";
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      return "Password is required";
+    }
+    return "";
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      email: validateEmail(newEmail),
+    }));
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      password: validatePassword(newPassword),
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    if (!emailError && !passwordError) {
+      // Handle form submission (e.g., login logic)
+      console.log("Form submitted");
+    } else {
+      setErrors({ email: emailError, password: passwordError });
+    }
+  };
+
   return (
     <div
       className="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
       style={{ backgroundColor: "#f8f9fa" }}
     >
       <div
-        className="row shadow-lg"
+        className={`row shadow-lg formContainer`}
         style={{
           borderRadius: "10px",
           overflow: "hidden",
@@ -31,7 +83,7 @@ const LoginPage = () => {
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
             Hospital System Login
           </h3>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label
                 htmlFor="email"
@@ -42,10 +94,15 @@ const LoginPage = () => {
               </label>
               <input
                 type="email"
-                className="form-control"
+                className={`form-control ${errors.email ? "is-invalid" : ""}`}
                 id="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={handleEmailChange}
               />
+              {errors.email && (
+                <div className="invalid-feedback">{errors.email}</div>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -57,10 +114,17 @@ const LoginPage = () => {
               </label>
               <input
                 type="password"
-                className="form-control"
+                className={`form-control ${
+                  errors.password ? "is-invalid" : ""
+                }`}
                 id="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={handlePasswordChange}
               />
+              {errors.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )}
             </div>
             <div className="d-grid">
               <button
@@ -75,6 +139,18 @@ const LoginPage = () => {
               <a href="#" style={{ textDecoration: "none", color: "#dea94d" }}>
                 Forgot password?
               </a>
+            </div>
+            <hr />
+            <div className="text-center">
+              <div style={{ textDecoration: "none", color: "#dea94d" }}>
+                New user?{" "}
+                <Link
+                  to="/register"
+                  style={{ color: "#0088ce", textDecoration: "none" }}
+                >
+                  Register now!
+                </Link>
+              </div>
             </div>
           </form>
         </div>
