@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   return (
     <div
-      className="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
+      className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
+        isLoaded ? "fade-in" : ""
+      }`}
       style={{ backgroundColor: "#f8f9fa" }}
     >
       <div
-        className="row shadow-lg"
+        className={`row shadow-lg formContainer slide-up ${
+          isLoaded ? "slide-up-loaded" : ""
+        }`}
         style={{
           borderRadius: "10px",
           overflow: "hidden",
@@ -17,18 +27,10 @@ const RegisterPage = () => {
           width: "100%",
         }}
       >
-        {/* Image Section */}
-        <div className="col-md-6 d-none d-md-block p-0">
-          <img
-            src="authpage.jpg"
-            alt="Hospital"
-            className="img-fluid"
-            style={{ height: "100%", objectFit: "cover" }}
-          />
-        </div>
-
         {/* Form Section */}
-        <div className="col-md-6 bg-white p-5 d-flex flex-column justify-content-center">
+        <div
+          className={`col-md-6 bg-white p-5 d-flex flex-column justify-content-center`}
+        >
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
             Hospital System Registration
           </h3>
@@ -117,7 +119,42 @@ const RegisterPage = () => {
             </div>
           </form>
         </div>
+        {/* Image Section */}
+        <div
+          className={`col-md-6 d-none d-md-block p-0 slide-in ${
+            isLoaded ? "slide-in-loaded" : ""
+          }`}
+        >
+          <img
+            src="authpage.jpg"
+            alt="Hospital"
+            className="img-fluid"
+            style={{ height: "100%", objectFit: "cover" }}
+          />
+        </div>
       </div>
+
+      <style jsx>{`
+        .fade-in {
+          opacity: 0;
+          animation: fadeIn 1s forwards;
+        }
+
+        .slide-in {
+          transform: translateX(-100%);
+          transition: transform 1s ease-in-out;
+        }
+
+        .slide-in-loaded {
+          transform: translateX(0);
+        }
+
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };
