@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
@@ -6,6 +6,11 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const validateEmail = (email) => {
     if (!email) {
@@ -47,7 +52,6 @@ const LoginPage = () => {
     const passwordError = validatePassword(password);
 
     if (!emailError && !passwordError) {
-      // Handle form submission (e.g., login logic)
       console.log("Form submitted");
     } else {
       setErrors({ email: emailError, password: passwordError });
@@ -56,11 +60,15 @@ const LoginPage = () => {
 
   return (
     <div
-      className="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
+      className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
+        isLoaded ? "fade-in" : ""
+      }`}
       style={{ backgroundColor: "#f8f9fa" }}
     >
       <div
-        className={`row shadow-lg formContainer`}
+        className={`row shadow-lg formContainer slide-up ${
+          isLoaded ? "slide-up-loaded" : ""
+        }`}
         style={{
           borderRadius: "10px",
           overflow: "hidden",
@@ -69,7 +77,12 @@ const LoginPage = () => {
         }}
       >
         {/* Image Section */}
-        <div className="col-md-6 d-none d-md-block p-0">
+        <div
+          className={`col-md-6 d-none d-md-block p-0 slide-in ${
+            isLoaded ? "slide-in-loaded" : ""
+          }`}
+          style={{ zIndex: "100" }}
+        >
           <img
             src="authpage.jpg"
             alt="Hospital"
@@ -84,7 +97,7 @@ const LoginPage = () => {
             Hospital System Login
           </h3>
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
+            <div className="mb-4">
               <label
                 htmlFor="email"
                 className="form-label"
@@ -101,10 +114,15 @@ const LoginPage = () => {
                 onChange={handleEmailChange}
               />
               {errors.email && (
-                <div className="invalid-feedback">{errors.email}</div>
+                <small
+                  style={{ position: "absolute", width: "fit-content" }}
+                  className="invalid-feedback"
+                >
+                  {errors.email}
+                </small>
               )}
             </div>
-            <div className="mb-4">
+            <div className="mb-5">
               <label
                 htmlFor="password"
                 className="form-label"
@@ -123,7 +141,12 @@ const LoginPage = () => {
                 onChange={handlePasswordChange}
               />
               {errors.password && (
-                <div className="invalid-feedback">{errors.password}</div>
+                <div
+                  style={{ position: "absolute", width: "fit-content" }}
+                  className="invalid-feedback"
+                >
+                  {errors.password}
+                </div>
               )}
             </div>
             <div className="d-grid">
@@ -155,6 +178,28 @@ const LoginPage = () => {
           </form>
         </div>
       </div>
+
+      <style jsx>{`
+        .fade-in {
+          opacity: 0;
+          animation: fadeIn 1s forwards;
+        }
+
+        .slide-in {
+          transform: translateX(100%);
+          transition: transform 1s ease-in-out;
+        }
+
+        .slide-in-loaded {
+          transform: translateX(0);
+        }
+
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };
