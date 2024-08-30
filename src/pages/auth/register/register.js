@@ -109,7 +109,7 @@ const RegisterPage = () => {
               <div style={{ color: "#dea94d" }}>
                 Already have an account?
                 <Link
-                  to="/login"
+                  to="/signin"
                   style={{ textDecoration: "none", color: "#0088ce" }}
                 >
                   {" "}

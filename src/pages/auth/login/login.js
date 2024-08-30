@@ -168,7 +168,7 @@ const LoginPage = () => {
               <div style={{ textDecoration: "none", color: "#dea94d" }}>
                 New user?{" "}
                 <Link
-                  to="/register"
+                  to="/signup"
                   style={{ color: "#0088ce", textDecoration: "none" }}
                 >
                   Register now!
