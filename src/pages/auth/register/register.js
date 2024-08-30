@@ -102,6 +102,7 @@ const RegisterPage = () => {
                 Register
               </button>
             </div>
+            <hr />
             <div className="text-center mt-3">
               <div style={{ color: "#dea94d" }}>
                 Already have an account?
