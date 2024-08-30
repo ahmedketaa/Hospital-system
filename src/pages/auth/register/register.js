@@ -1,7 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <div
       className="container-fluid min-vh-100 d-flex align-items-center justify-content-center"
@@ -29,9 +30,24 @@ const LoginPage = () => {
         {/* Form Section */}
         <div className="col-md-6 bg-white p-5 d-flex flex-column justify-content-center">
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
-            Hospital System Login
+            Hospital System Registration
           </h3>
           <form>
+            <div className="mb-3">
+              <label
+                htmlFor="name"
+                className="form-label"
+                style={{ color: "#6c757d" }}
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                placeholder="Enter your full name"
+              />
+            </div>
             <div className="mb-3">
               <label
                 htmlFor="email"
@@ -47,7 +63,7 @@ const LoginPage = () => {
                 placeholder="Enter your email"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-3">
               <label
                 htmlFor="password"
                 className="form-label"
@@ -62,19 +78,41 @@ const LoginPage = () => {
                 placeholder="Enter your password"
               />
             </div>
+            <div className="mb-4">
+              <label
+                htmlFor="confirmPassword"
+                className="form-label"
+                style={{ color: "#6c757d" }}
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+              />
+            </div>
             <div className="d-grid">
               <button
                 style={{ backgroundColor: "#232f66" }}
                 type="submit"
                 className="btn text-white"
               >
-                Login
+                Register
               </button>
             </div>
             <div className="text-center mt-3">
-              <a href="#" style={{ textDecoration: "none", color: "#dea94d" }}>
-                Forgot password?
-              </a>
+              <div style={{ color: "#dea94d" }}>
+                Already have an account?
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "#0088ce" }}
+                >
+                  {" "}
+                  Login
+                </Link>
+              </div>
             </div>
           </form>
         </div>
@@ -83,4 +121,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
