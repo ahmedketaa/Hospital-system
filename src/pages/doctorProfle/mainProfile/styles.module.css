@@ -1,0 +1,131 @@
+.profileContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    overflow: hidden;
+    gap: 20px;
+}
+
+.coverContainer {
+    position: relative;
+    flex: 1;
+}
+
+.coverPhoto {
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.coverImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profilePhoto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    overflow: hidden;
+    position: absolute;
+    top: 150px; /* Position the profile photo at the bottom of the cover photo */
+    left: 20px; /* Adjust as needed */
+    transform: translateY(50%);
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileInfo {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profileDetails {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.profileDetails h2 {
+    margin-bottom: 10px;
+    color: #232f66;
+}
+
+.bookingAvailability {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.bookingAvailability h4 {
+    color: #232f66;
+    margin-bottom: 10px;
+}
+
+.bookNowBtn {
+    background-color: #0088ce;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bookNowBtn:hover {
+    background-color: #006bb2;
+}
+
+.availabilityCalendar {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+}
+
+.monthYear {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #232f66;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.weekend {
+    background-color: #d0d0d0;
+}
