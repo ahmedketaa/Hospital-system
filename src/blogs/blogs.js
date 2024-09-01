@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import "./blogs.css";
 import BlogsData from "./blogs.json";
 const Blogs = () => {
+  const [currentPage, setCurrentPge] = useState(1);
+  const recordsPerPage = 6;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const BData = BlogsData.slice(firstIndex, lastIndex);
+  const nPage = Math.ceil(BlogsData.length / recordsPerPage);
+  const numbers = [...Array(nPage + 1).keys()].slice(1);
+
   return (
     <div className="container-fluid cont">
       <div className="contImge container-fluid">
@@ -46,7 +54,7 @@ const Blogs = () => {
       </div>
       {/*cards */}
       <div class="row row-cols-1 row-cols-md-3 ms-5 g-2 ">
-        {BlogsData.map((blog) => (
+        {BData.map((blog) => (
           <div className="col mx-auto mt-5 ">
             <div key={blog.id} className="card" style={{ width: "22rem" }}>
               <img
@@ -87,8 +95,36 @@ const Blogs = () => {
           </div>
         ))}
       </div>
+      <nav>
+        <ul className="pagination">
+          <li className="page-item">
+            <a href="/" className="page-link" onClick={prePage}>
+              Prev
+            </a>
+          </li>
+          {numbers.map((n, i) => (
+            <li
+              className={`page-item ${currentPage === n ? "active" : ""}`}
+              key={i}>
+              <a href="/" className="page-link" onClick={(n) => changeCPage(n)}>
+                {n}
+              </a>
+            </li>
+          ))}
+          <li className="page-item">
+            <a href="/" className="page-link" onClick={nextPage}>
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
+  function prePage() {}
+
+  function changeCPage(n) {}
+
+  function nextPage() {}
 };
 
 export default Blogs;
