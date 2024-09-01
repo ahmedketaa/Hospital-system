@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./blogs.css";
-
+import BlogsData from "./blogs.json";
 const Blogs = () => {
   return (
     <div className="container-fluid cont">
@@ -45,6 +45,48 @@ const Blogs = () => {
         socially fit.
       </div>
       {/*cards */}
+      <div class="row row-cols-1 row-cols-md-3 ms-5 g-2 ">
+        {BlogsData.map((blog) => (
+          <div className="col mx-auto mt-5 ">
+            <div key={blog.id} className="card" style={{ width: "22rem" }}>
+              <img
+                src={blog.url}
+                className="card-img-top"
+                alt="img"
+                style={{ width: "22rem", height: "13rem" }}
+              />
+              <div className="card-body">
+                <h5
+                  className="card-title"
+                  style={{
+                    overflow: "hidden",
+                    height: "30px",
+                    fontFamily: "-moz-initial",
+                    color: "#222f66",
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    width: "300px",
+                    textOverflow: " ellipsis",
+                    whiteSpace: "nowrap",
+                  }}>
+                  {blog.title}
+                </h5>
+                <p
+                  className="card-text "
+                  style={{
+                    overflow: "hidden",
+                    height: "77px",
+                  }}>
+                  {blog.body}
+                </p>
+                <a href="/." className="btn btn-primary">
+                  READ MORE
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
