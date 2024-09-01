@@ -1,0 +1,15 @@
+
+.contImge{
+    width: 1380px;
+    margin: 0px;
+    padding: 0px;
+    height: 350px;
+    margin-left: -15px;
+    
+  
+}
+.card-title {
+    text-overflow: ellipsis;
+    white-space:nowrap;
+}
+

@@ -63,8 +63,7 @@ const LoginPage = () => {
       className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
         isLoaded ? "fade-in" : ""
       }`}
-      style={{ backgroundColor: "#f8f9fa" }}
-    >
+      style={{ backgroundColor: "#f8f9fa" }}>
       <div
         className={`row shadow-lg formContainer slide-up ${
           isLoaded ? "slide-up-loaded" : ""
@@ -74,15 +73,13 @@ const LoginPage = () => {
           overflow: "hidden",
           maxWidth: "900px",
           width: "100%",
-        }}
-      >
+        }}>
         {/* Image Section */}
         <div
           className={`col-md-6 d-none d-md-block p-0 slide-in ${
             isLoaded ? "slide-in-loaded" : ""
           }`}
-          style={{ zIndex: "100" }}
-        >
+          style={{ zIndex: "100" }}>
           <img
             src="authpage.jpg"
             alt="Hospital"
@@ -101,8 +98,7 @@ const LoginPage = () => {
               <label
                 htmlFor="email"
                 className="form-label"
-                style={{ color: "#6c757d" }}
-              >
+                style={{ color: "#6c757d" }}>
                 Email address
               </label>
               <input
@@ -116,8 +112,7 @@ const LoginPage = () => {
               {errors.email && (
                 <small
                   style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback"
-                >
+                  className="invalid-feedback">
                   {errors.email}
                 </small>
               )}
@@ -126,8 +121,7 @@ const LoginPage = () => {
               <label
                 htmlFor="password"
                 className="form-label"
-                style={{ color: "#6c757d" }}
-              >
+                style={{ color: "#6c757d" }}>
                 Password
               </label>
               <input
@@ -143,8 +137,7 @@ const LoginPage = () => {
               {errors.password && (
                 <div
                   style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback"
-                >
+                  className="invalid-feedback">
                   {errors.password}
                 </div>
               )}
@@ -153,8 +146,7 @@ const LoginPage = () => {
               <button
                 style={{ backgroundColor: "#232f66" }}
                 type="submit"
-                className="btn text-white"
-              >
+                className="btn text-white">
                 Login
               </button>
             </div>
@@ -169,8 +161,7 @@ const LoginPage = () => {
                 New user?{" "}
                 <Link
                   to="/register"
-                  style={{ color: "#0088ce", textDecoration: "none" }}
-                >
+                  style={{ color: "#0088ce", textDecoration: "none" }}>
                   Register now!
                 </Link>
               </div>
