@@ -4,15 +4,22 @@ import LoginPage from "./pages/auth/login/login";
 import RegisterPage from "./pages/auth/register/register";
 import DoctorProfile from "./pages/doctorProfle/doctorProfile";
 import Home from "./pages/Home/Home";
+import SpecialtyDetailComponent from "./pages/Specialtie details/SpecialtyDetailComponent";
+import SpecialtiesComponent from "./pages/Specialties/SpecialtiesComponent";
+import NewsComponent from "./pages/news/news";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/specialty" element={<SpecialtiesComponent />} />
+        <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
+        <Route path="/news" element={<NewsComponent />} />
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home/>} /> 
       </Routes>
     </BrowserRouter>
   );
