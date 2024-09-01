@@ -31,10 +31,9 @@
     border-radius: 50%;
     border: 4px solid white;
     overflow: hidden;
-    position: absolute;
-    top: 150px; /* Position the profile photo at the bottom of the cover photo */
+    position: absolute; /* Position the profile photo at the bottom of the cover photo */
     left: 20px; /* Adjust as needed */
-    transform: translateY(50%);
+    transform: translateY(-50%);
 }
 
 .profileImage {

@@ -32,11 +32,10 @@ const DoctorProfile = () => {
         </div>
       </header>
       <main className="container">
-        <section>
+        <section className="mt-5">
           <MainProfile />
         </section>
-
-        <section>
+        <section className="mt-5 mb-5">
           <h3 style={{ color: "#232f66" }}>Other Doctor</h3>
           <OtherDoctors />
         </section>
