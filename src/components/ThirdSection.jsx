@@ -31,7 +31,7 @@ function ThirdSection() {
             <span >Our Specialties</span>
             </div>
           </div>
-          <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>show more</button>
+          <button className='btn mb-2   ' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>show more</button>
           </div>
         <div className="col-md-6 text-center">
           <div className="image-frame">

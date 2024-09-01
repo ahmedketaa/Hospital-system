@@ -13,7 +13,11 @@
     box-shadow: none;
     outline: none;
   }
-  
+  input.form-control::placeholder{
+    color: white !important;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
   .form-floating {
     position: relative;
     margin-bottom: 1.5rem;
