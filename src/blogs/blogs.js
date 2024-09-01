@@ -35,7 +35,15 @@ const Blogs = () => {
         </div>
       </div>
       {/* ################ */}
-
+      <div className="w-75 p-5">
+        There is a famous proverb stating, “Health is Wealth,” which is
+        self-explanatory. Health is an asset to human life, which leads to a
+        stable and calm mind, ultimately leading to a wealthy life. If a person
+        is taking good care of their health, they get mental peace and can focus
+        on their work further. When we fall sick, it makes us irritated and
+        unstable. Staying healthy is about being physically, mentally, and
+        socially fit.
+      </div>
       {/*cards */}
     </div>
   );
