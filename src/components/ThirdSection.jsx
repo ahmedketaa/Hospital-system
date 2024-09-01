@@ -4,7 +4,9 @@ import {  faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import './third.css'
 function ThirdSection() {
   return (
-    <div className="container my-5">
+   <div className='p-4 my-4' style={{background:"#EEE",position:"relative"}}>
+    <span style={{position:"absolute",width:"50px",height:"50px",background:"white", right:"50%",top:"-25px",transform:"rotate(45deg)"}}></span>
+     <div className="container my-5 " >
       <div className="row align-items-center">
         <div className="col-md-6"> 
         
@@ -33,11 +35,12 @@ function ThirdSection() {
           </div>
         <div className="col-md-6 text-center">
           <div className="image-frame">
-            <img src="third.png" alt="Sample" className="img-fluid rounded" />
+            <img src="third.png" alt="Sample" className="img-fluid rounded-3" />
           </div>
         </div>
       </div>
     </div>
+   </div>
   );
 }
 

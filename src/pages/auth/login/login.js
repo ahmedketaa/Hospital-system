@@ -94,7 +94,7 @@ const LoginPage = () => {
         {/* Form Section */}
         <div className="col-md-6 bg-white p-5 d-flex flex-column justify-content-center">
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
-            Hospital System Login
+            Hospital Login
           </h3>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -168,7 +168,7 @@ const LoginPage = () => {
               <div style={{ textDecoration: "none", color: "#dea94d" }}>
                 New user?{" "}
                 <Link
-                  to="/register"
+                  to="/signup"
                   style={{ color: "#0088ce", textDecoration: "none" }}
                 >
                   Register now!
