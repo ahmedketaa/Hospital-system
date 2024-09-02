@@ -1,0 +1,47 @@
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    background-color: #d3d4d3;
+    padding: 10px;
+}
+.paths {
+    margin-left: 10%; /* or adjust based on your layout */
+}
+.pagePath {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.nowPath{ 
+    color: #232f66;
+}
+.docNamePath{ 
+    color: #232f66;
+    height: 32px;
+    width: 270px;
+}
+.linkStyle{ 
+    text-decoration: none;
+    color: #606161;
+    transition:all .5s ease;
+    margin:0 5px;
+}
+.linkStyle:hover{
+    color: #0088ce;
+ } 
+
+ @media screen and (max-width: 600px) {
+    .header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .linkStyle {
+        font-size: 14px;
+        padding: 5px 0;
+    }
+}
