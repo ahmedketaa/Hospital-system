@@ -1,0 +1,37 @@
+.footer-cards {
+    padding: 30px 0;
+  }
+  
+  .footer-links {
+    padding: 30px 0;
+  }
+  
+  .footer-links h5 {
+    margin-bottom: 15px;
+    color: #DEAA4E;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links ul li a:hover {
+    color: #DEAA4E;
+  }
+  
+  .footer-bottom {
+    background-color: #D9D9D9;
+    padding: 10px 0;
+  }
+  
