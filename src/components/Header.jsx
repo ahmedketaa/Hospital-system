@@ -13,7 +13,7 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex" >
             <li className="nav-item">
-              <Link className="nav-link" to="/about" style={{color:"#222F66"}}>About Us</Link>
+              <Link className="nav-link" to="/" style={{color:"#222F66"}}>Home</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/news" style={{color:"#222F66"}}>| News & Media</Link>
@@ -22,10 +22,10 @@ function Header() {
               <Link className="nav-link" to="/academics" style={{color:"#222F66"}}>  |  Academics</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/testimonials" style={{color:"#222F66"}}>|  Testimonials</Link>
+              <Link className="nav-link" to="/doctors" style={{color:"#222F66"}}>|  Doctors</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/careers" style={{color:"#222F66"}}>|  Careers</Link>
+              <Link className="nav-link" to="/about" style={{color:"#222F66"}}>|  About Us</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/contact" style={{color:"#222F66"}}>|  Contact</Link>

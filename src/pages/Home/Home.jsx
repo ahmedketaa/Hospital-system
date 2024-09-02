@@ -16,8 +16,7 @@ export default function Home() {
         <SecondSection />
         <ThirdSection />
         <AppointmentSection/>
-        <SubFooter />
-        <Footer/>
+     
     </div>
   )
 }

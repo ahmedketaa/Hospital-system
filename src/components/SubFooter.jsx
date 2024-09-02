@@ -15,7 +15,8 @@ export default function SubFooter() {
                         <h4 style={{color:"#222F66"}}>Make Appointment</h4>
                         <p className='text-white'>Looking for professinal & trusted 
                         medical healthcare?</p>
-          <button className='btn mb-2' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>Make Appointment</button>
+          <button className='btn mb-2' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>
+            Make Appointment</button>
 
                     </div>
             </div>
