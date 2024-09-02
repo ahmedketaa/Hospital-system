@@ -12,6 +12,10 @@ import DoctorProfile from "./pages/doctorProfle/doctorProfile";
 import SubFooter from "./components/SubFooter";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Blogs from "./blogs/blogs";
+import SingleBlog from "./blogs/singleBlog";
+
+
 
 function App() {
   return (
@@ -26,7 +30,9 @@ function App() {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
         <Route path="/" element={<Home/>} /> 
-      
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/singleBlog" element={<SingleBlog />} />
+   
       </Routes>
       <SubFooter />
       <Footer />
