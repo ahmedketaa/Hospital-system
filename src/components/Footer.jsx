@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import './Footer.css';
 import FooterCard from './FooterCard';
 import { faClock, faEnvelopeCircleCheck, faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
