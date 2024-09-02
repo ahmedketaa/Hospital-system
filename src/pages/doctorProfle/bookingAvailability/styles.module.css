@@ -1,0 +1,79 @@
+.availabilityCalendar {
+  background-color: #f7f9fc;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.bookingTitle {
+  background-color: #232f66;
+  border-radius: 10px 10px 0 0;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center; 
+}
+
+.bookingTitle h4 {
+  font-size: 1.5rem;
+  color: white;
+  margin: 0; 
+}
+
+.calendar {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.monthYear {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #232f66;
+  margin-bottom: 10px;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.day {
+  background-color:#d3d4d3;
+  border-radius: 5px;
+  padding: 10px 0;
+  text-align: center;
+  color: #232f66;
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.day:hover {
+  background-color: #dee2e6;
+  cursor: pointer;
+}
+
+.weekend {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.dayLabels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.dayLabel {
+  font-size: .9rem;
+  padding: 0px 5px; 
+  border-radius: 5px;
+  background-color: #232f66;
+}
