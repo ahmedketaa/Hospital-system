@@ -78,6 +78,11 @@
     cursor: pointer;
     padding: 8px 16px;
     border-radius: 5px;
+    transition: all .5s ease;
+  }
+
+  .appointmentButton:hover{ 
+    background-color: #006bb2;
   }
   
   @media (max-width: 768px) {
