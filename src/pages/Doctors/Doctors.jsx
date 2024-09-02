@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DoctorsPageCard from '../../components/DoctorsPageCard';
-
+import { Link } from 'react-router-dom';
+import styles from '../doctorProfle/doctor.module.css'
 export default function Doctors() {
   const doctorsData = [
     {
@@ -111,6 +112,14 @@ export default function Doctors() {
   return (
     <>
      <div className='px-5 py-3' style={{backgroundColor:"#EEEEEE", color:"#29367D"}}>
+     <div className={styles.pagePath}>
+            <Link className={styles.linkStyle} to={"/"}>
+              Home 
+            </Link>
+            <Link className={styles.nowPath} to={"/doctors"}>
+                &gt; Healthcare Experts
+            </Link>
+          </div>
             <h5>Doctor Directory / healthcare experts</h5>
         </div>
    
@@ -142,7 +151,7 @@ export default function Doctors() {
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
-        <button className="btn btn-primary col ms-2">Search</button>
+        <button className="btn btn-warning col ms-2">Search</button>
       </div>
 
       <div className="doctor-cards row">
