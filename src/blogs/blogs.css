@@ -13,3 +13,19 @@
     white-space:nowrap;
 }
 
+.cardBtn{
+    border: solid 1px #222f66;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    font-family: -moz-initial;
+    color: #222f66;
+    padding: 10px;
+}
+
+.cardBtn:hover{
+    color: aliceblue;
+    background-color: #222f66;
+}

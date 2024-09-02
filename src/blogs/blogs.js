@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./blogs.css";
 import BlogsData from "./blogs.json";
+import { Link } from "react-router-dom";
 const Blogs = () => {
   const [currentPage, setCurrentPge] = useState(1);
   const recordsPerPage = 6;
@@ -28,8 +29,13 @@ const Blogs = () => {
           padding: "15px",
         }}>
         <div className="ms-5">
-          <p style={{ color: "grey", fontFamily: "-moz-initial" }}>
-            Home <span style={{ color: "#222f66" }}>{">"}Blog</span>
+          <p>
+            <span style={{ fontFamily: "-moz-initial" }}>
+              <Link to="" style={{ border: "none", color: "grey" }}>
+                Home
+              </Link>
+            </span>{" "}
+            <span style={{ color: "#222f66" }}>{">"}Blog</span>{" "}
           </p>
           <p
             style={{
@@ -56,12 +62,19 @@ const Blogs = () => {
       <div class="row row-cols-1 row-cols-md-3 ms-5 g-2 ">
         {BData.map((blog) => (
           <div className="col mx-auto mt-5 ">
-            <div key={blog.id} className="card" style={{ width: "22rem" }}>
+            <div
+              key={blog.id}
+              className="card"
+              style={{ width: "22rem", border: "none" }}>
               <img
                 src={blog.url}
                 className="card-img-top"
                 alt="img"
-                style={{ width: "22rem", height: "13rem" }}
+                style={{
+                  width: "22rem",
+                  height: "13rem",
+                  borderRadius: "10px",
+                }}
               />
               <div className="card-body">
                 <h5
@@ -87,44 +100,54 @@ const Blogs = () => {
                   }}>
                   {blog.body}
                 </p>
-                <a href="/." className="btn btn-primary">
+                <button to="" className="btn  cardBtn">
                   READ MORE
-                </a>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <nav>
+      <nav className=" mt-5 d-flex justify-content-center">
         <ul className="pagination">
           <li className="page-item">
-            <a href="/" className="page-link" onClick={prePage}>
+            <Link to="" className="page-link" onClick={prePage}>
               Prev
-            </a>
+            </Link>
           </li>
           {numbers.map((n, i) => (
             <li
               className={`page-item ${currentPage === n ? "active" : ""}`}
               key={i}>
-              <a href="/" className="page-link" onClick={(n) => changeCPage(n)}>
+              <Link to="" className="page-link" onClick={() => changeCPage(n)}>
                 {n}
-              </a>
+              </Link>
             </li>
           ))}
           <li className="page-item">
-            <a href="/" className="page-link" onClick={nextPage}>
+            <Link to="" className="page-link" onClick={nextPage}>
               Next
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
     </div>
   );
-  function prePage() {}
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPge(currentPage - 1);
+    }
+  }
 
-  function changeCPage(n) {}
+  function changeCPage(id) {
+    setCurrentPge(id);
+  }
 
-  function nextPage() {}
+  function nextPage() {
+    if (currentPage !== nPage) {
+      setCurrentPge(currentPage + 1);
+    }
+  }
 };
 
 export default Blogs;
