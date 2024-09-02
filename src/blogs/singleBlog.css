@@ -10,43 +10,4 @@
     padding: 15px;
   }
 
-  .greyheader {
-    font-family: -moz-initial;
-    font-size: 16px;
-  }
 
-  .breadcrumb a {
-    color: grey;
-    text-decoration: none;
-  }
-
-  .breadcrumb .active {
-    color: #222f66;
-  }
-
-  .breadcrumb-title {
-    margin-top: -15px;
-    font-family: -moz-initial;
-    font-size: 23px;
-    color: #29367d;
-  }
-
-  @media (max-width: 768px) {
-    .breadcrumb {
-      font-size: 14px;
-    }
-
-    .breadcrumb-title {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .breadcrumb {
-      font-size: 12px;
-    }
-
-    .breadcrumb-title {
-      font-size: 18px;
-    }
-}

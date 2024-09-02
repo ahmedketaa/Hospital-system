@@ -1,13 +1,29 @@
 
 .contImge{
-    width: 1380px;
+    /* width: 1380px;
     margin: 0px;
     padding: 0px;
     height: 350px;
     margin-left: -15px;
-    
+     */
+
+     position: relative;
+     width: 100%;
+     overflow: hidden;
+     background-image: url(../../public/medicalBlog.jpeg);
+    background-repeat: no-repeat;
+    background-size:cover;
+     height: 350px;
   
 }
+.contImge img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 350px;
+}
+
+
 .card-title {
     text-overflow: ellipsis;
     white-space:nowrap;
@@ -29,3 +45,15 @@
     color: aliceblue;
     background-color: #222f66;
 }
+
+
+
+.header {
+    background-color: #eeeeee;
+    padding: 15px;
+    width: 100%;
+  }
+
+
+
+

@@ -12,42 +12,35 @@ const Blogs = () => {
   const numbers = [...Array(nPage + 1).keys()].slice(1);
 
   return (
-    <div className="container-fluid cont">
-      <div className="contImge container-fluid">
-        <img
-          src="blog.webp"
-          alt="Blogs"
-          className="img-fluid"
-          style={{ height: "100%", width: "100%", objectFit: "cover" }}
-        />
+    <>
+      <div className="contImge container-fluid bg-success">
+        {/*img is here as a backGround  */}
       </div>
-      <div
-        style={{
-          backgroundColor: "#eeeeee",
-          width: "1380px",
-          marginLeft: "-15px",
-          padding: "15px",
-        }}>
-        <div className="ms-5">
-          <p>
-            <span style={{ fontFamily: "-moz-initial" }}>
-              <Link to="" style={{ border: "none", color: "grey" }}>
-                Home
-              </Link>
-            </span>{" "}
-            <span style={{ color: "#222f66" }}>{">"}Blog</span>{" "}
-          </p>
-          <p
-            style={{
-              marginTop: "-15px",
-              fontFamily: "-moz-initial",
-              fontSize: "23px",
-              color: "#29367d",
-            }}>
-            SAIFEE BLOG
-          </p>
+
+      <div className="header container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <p>
+              <span style={{ fontFamily: "-moz-initial" }}>
+                <Link to="" style={{ border: "none", color: "grey" }}>
+                  Home
+                </Link>
+              </span>{" "}
+              <span style={{ color: "#222f66" }}>{">"}Blog</span>{" "}
+            </p>
+            <p
+              style={{
+                marginTop: "-15px",
+                fontFamily: "-moz-initial",
+                fontSize: "23px",
+                color: "#29367d",
+              }}>
+              SAIFEE BLOG
+            </p>
+          </div>
         </div>
       </div>
+
       {/* ################ */}
       <div className="w-75 p-5">
         There is a famous proverb stating, “Health is Wealth,” which is
@@ -61,7 +54,7 @@ const Blogs = () => {
       {/*cards */}
       <div class="row row-cols-1 row-cols-md-3 ms-5 g-2 ">
         {BData.map((blog) => (
-          <div className="col mx-auto mt-5 ">
+          <div className="col mx-auto col-12 col-lg-4 col-md-6  mt-5">
             <div
               key={blog.id}
               className="card"
@@ -131,7 +124,7 @@ const Blogs = () => {
           </li>
         </ul>
       </nav>
-    </div>
+    </>
   );
   function prePage() {
     if (currentPage !== 1) {
