@@ -25,10 +25,10 @@ function Header() {
               <Link className="nav-link" to="/doctors" style={{color:"#222F66"}}>|  Doctors</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about" style={{color:"#222F66"}}>|  About Us</Link>
+              <Link className="nav-link" to="/about_Us" style={{color:"#222F66"}}>|  About Us</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contact" style={{color:"#222F66"}}>|  Contact</Link>
+              <Link className="nav-link" to="/contact_Us" style={{color:"#222F66"}}>|  Contact</Link>
             </li>
           </ul>
           <div className="d-flex align-items-center">
