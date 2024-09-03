@@ -10,15 +10,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Doctors from "./pages/Doctors/Doctors";
 import DoctorProfile from "./pages/doctorProfle/doctorProfile";
 import SubFooter from "./components/SubFooter";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Blogs from "./blogs/blogs";
 import SingleBlog from "./blogs/singleBlog";
+import Contact_Us from "./components/Contact_Us/Contact_Us";
+import About_us from "./components/About_us/About_us";
+import Footer from "./components/Footer";
+import NotFound from "./components/404/NotFound";
 
 function App() {
   return (
     <BrowserRouter>
-     <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginPage />} />
@@ -29,7 +32,10 @@ function App() {
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/contact_Us" element={<Contact_Us />} />
+        <Route path="/about_Us" element={<About_us />} />
         <Route path="/singleBlog" element={<SingleBlog />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <SubFooter />
       <Footer />

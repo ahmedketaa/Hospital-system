@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DoctorsPageCard from '../../components/DoctorsPageCard';
 import { Link } from 'react-router-dom';
 import styles from '../doctorProfle/doctor.module.css'
+import DoctorsPageCard from '../../components/DoctorsPageCard';
 export default function Doctors() {
   const doctorsData = [
     {
