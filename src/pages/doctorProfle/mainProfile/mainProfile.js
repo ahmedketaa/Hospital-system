@@ -23,7 +23,6 @@ const MainProfile = () => {
               />
             </div>
           </div>
-          {/* profile details */}
           <div className={styles.profileInfo}>
             <div className={styles.profileDetails}>
               <h2>Dr. John Doe</h2>

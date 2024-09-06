@@ -17,6 +17,7 @@ import Contact_Us from "./components/Contact_Us/Contact_Us";
 import About_us from "./components/About_us/About_us";
 import Footer from "./components/Footer";
 import NotFound from "./components/404/NotFound";
+import PatientServices from "./components/PatientServices/PatientServices";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/patientservices" element={<PatientServices />} />
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
         <Route path="/singleBlog" element={<SingleBlog />} />

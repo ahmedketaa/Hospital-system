@@ -1,29 +1,146 @@
-/* src/App.css */
+/* Main Container */
+.news-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 15px;
+}
 
-.card {
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.2s ease-in-out;
-  
+/* Section Title */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #232f66;
+  position: relative;
+  animation: fadeInDown 1s ease-out;
+}
+
+/* Description */
+.description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6c757d;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Card */
+.news-card {
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease-in-out;
+}
+
+.news-card:hover {
+  transform: scale(1.05);
+  background-color: #232f66 !important;
+  color: white !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.news-card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  animation: fadeInLeft 0.7s ease-in-out;
+}
+
+.news-card .card-text {
+  font-size: 1rem;
+  color: #6c757d;
+  animation: fadeInRight 0.7s ease-in-out;
+}
+
+/* Read Button */
+.read {
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  background-color: #ffffff;
+  border-color: #232f66;
+  color: #232f66;
+  font-weight: bold;
+}
+
+.read:hover {
+  color: #ffffff !important;
+  background-color: #1e90ff !important; /* لون أزرق فاتح عند التحليق */
+  border-color: #1e90ff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination */
+.pagination .page-link {
+  color: #007bff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .page-link:hover {
+  background-color: #232f66 !important;
+  color: white !important;
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .card:hover {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
     transform: scale(1.05);
-    background-color: #232f66 !important;
-    color: white !important;
   }
-  .read:hover{
-    color: white !important;
-    border-color: white !important;
-    background-color:#232f66 !important;
-  }
-  .pagination .page-link {
-    color: #007bff;
-  }
-  
-  .pagination .page-link:hover {
-    background-color: #232f66 !important;
-    color: white !important;
-  }
-  
-  
+}
