@@ -6,7 +6,7 @@ const services = [
     id: 1,
     name: 'General Consultation',
     description: 'Get expert advice and care from our experienced doctors.',
-    icon: '🩺', // يمكنك استبدال هذا بأيقونة أو صورة مناسبة
+    icon: '🩺',
   },
   {
     id: 2,
@@ -32,7 +32,61 @@ const services = [
     description: 'Specialized care for children from our pediatricians.',
     icon: '🧸',
   },
-  // أضف المزيد من الخدمات هنا
+  {
+    id: 6,
+    name: 'Pharmacy Services',
+    description: 'In-house pharmacy providing all essential medications.',
+    icon: '💊',
+  },
+  
+  {
+    id: 8,
+    name: 'Laboratory Services',
+    description: 'Comprehensive lab tests for accurate diagnostics.',
+    icon: '🔬',
+  },
+  {
+    id: 9,
+    name: 'Physical Therapy',
+    description: 'Rehabilitation and therapy services to improve mobility.',
+    icon: '🧑‍🦽',
+  },
+  {
+    id: 10,
+    name: 'Dental Care',
+    description: 'Comprehensive dental services for all ages.',
+    icon: '🦷',
+  },
+  {
+    id: 11,
+    name: 'Mental Health Services',
+    description: 'Counseling and mental health support services.',
+    icon: '🧠',
+  },
+  {
+    id: 12,
+    name: 'Nutrition and Diet Counseling',
+    description: 'Personalized nutrition plans and diet advice.',
+    icon: '🥗',
+  },
+  {
+    id: 13,
+    name: 'Cardiology',
+    description: 'Specialized heart care services including diagnostics and treatments.',
+    icon: '❤️',
+  },
+  {
+    id: 14,
+    name: 'Ophthalmology',
+    description: 'Eye care services including exams and surgical procedures.',
+    icon: '👁️',
+  },
+  {
+    id: 15,
+    name: 'Orthopedics',
+    description: 'Specialized care for bone, joint, and muscle issues.',
+    icon: '🦴',
+  },
 ];
 
 function PatientServices() {

@@ -18,6 +18,7 @@ import About_us from "./components/About_us/About_us";
 import Footer from "./components/Footer";
 import NotFound from "./components/404/NotFound";
 import PatientServices from "./components/PatientServices/PatientServices";
+import Academics from "./components/Academics/Academics";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/patientservices" element={<PatientServices />} />
+        <Route path="/academics" element={<Academics />} />
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
         <Route path="/singleBlog" element={<SingleBlog />} />

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com'; // استيراد EmailJS
 import './Contact_Us.css';
+
 function Contact_Us() {
-    
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,8 +20,22 @@ function Contact_Us() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can handle form submission, such as sending data to a server
-    alert('Message sent successfully!');
+
+    const serviceID = 'service_zznghmk'; 
+    const templateID = 'template_d8ru31p'; 
+    const userID = 'YOUR_USER_ID';
+
+    emailjs.send(serviceID, templateID, formData, userID)
+      .then((response) => {
+        alert('Message sent successfully!');
+        console.log('SUCCESS!', response.status, response.text);
+      })
+      .catch((error) => {
+        alert('Failed to send message. Please try again.');
+        console.log('FAILED...', error);
+      });
+
+    // إعادة تعيين النموذج
     setFormData({
       name: '',
       email: '',
@@ -80,12 +95,7 @@ function Contact_Us() {
         <button type="submit" className="submit-button">Send Message</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default Contact_Us
-
-
-
-  
-
+export default Contact_Us;
