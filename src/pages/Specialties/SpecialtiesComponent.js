@@ -1,36 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './SpecialtiesComponent.css';
 import { Link } from 'react-router-dom';
 
 const SpecialtiesComponent = () => {
-    const specialties = [
-        { id: 1, title: 'Cardiology Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 2, title: 'General Surgery Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 3, title: 'Paediatric Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 4, title: 'Cardiology Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 5, title: 'General Surgery Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 6, title: 'Paediatric Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 7, title: 'Cardiology Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 8, title: 'General Surgery Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-        { id: 9, title: 'Paediatric Center Of Excellence', image: 'mature-male-doctor-smiling-science-photo-library.jpg' },
-    ];
+    const [specialties, setSpecialties] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Fetch data from the API
+        fetch('http://localhost:5000/getAll/specialies')
+            .then(response => response.json())
+            .then(data => {
+                setSpecialties(data.specialies);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching specialties:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="container mt-5">
             <h2 className="text-center mb-4">Specialties</h2>
             <div className="row">
-                {specialties.map((specialty) => (
-                    <div key={specialty.id} className="col-md-4 col-sm-6 mb-4">
-                        <div className="card">
-                            <Link to={`/specialty/${specialty.id}`} className="text-decoration-none">
-                                <img src={specialty.image} className="card-img-top" alt={specialty.title} />
-                                <div className="card-body">
-                                    <h5 className="card-title">{specialty.title}</h5>
-                                </div>
-                            </Link>
-                        </div>
+            {Array.isArray(specialties) && specialties.length > 0 ? (
+             specialties.map((specialty) => (
+        <div key={specialty.id} className="col-md-4 col-sm-6 mb-4">
+            <div className="card">
+                <Link to={`/specialty/${specialty._id}`} className="text-decoration-none">
+                    <img src={specialty.image} className="card-img-top" alt={specialty.title} />
+                    <div className="card-body">
+                        <h5 className="card-title">{specialty.title}</h5>
                     </div>
-                ))}
+                </Link>
+            </div>
+        </div>
+    ))
+) : (
+    <div>No specialties available.</div>
+)}
+
             </div>
 
             {/* Pagination */}
