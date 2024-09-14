@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SiPetsathome } from "react-icons/si";
 
 const RegisterPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -8,13 +10,17 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [gender, setGender] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
+    gender: "",
   });
+  const [message, setMessage] = useState(""); // State for success or error message
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -50,6 +56,13 @@ const RegisterPage = () => {
       return "Please confirm your password";
     } else if (confirmPassword !== password) {
       return "Passwords do not match";
+    }
+    return "";
+  };
+
+  const validateGender = (gender) => {
+    if (!gender) {
+      return "Gender is required";
     }
     return "";
   };
@@ -90,28 +103,81 @@ const RegisterPage = () => {
     }));
   };
 
+  const handleGenderChange = (e) => {
+    const newGender = e.target.value;
+    setGender(newGender);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      gender: validateGender(newGender),
+    }));
+  };
+
   const handleShowPasswordToggle = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const nameError = validateName(name);
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
     const confirmPasswordError = validateConfirmPassword(confirmPassword);
+    const genderError = validateGender(gender);
 
-    if (!nameError && !emailError && !passwordError && !confirmPasswordError) {
-      console.log("Form submitted");
-      // You can now submit the form data to the server
+    if (
+      !nameError &&
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError &&
+      !genderError
+    ) {
+      let patient = {
+        name: name,
+        email: email,
+        password: password,
+        gender: gender,
+      };
+
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/patient/signup`,
+          patient
+        );
+        setMessage("Registration successful!");
+        // Clear form fields
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setGender("");
+        // navigate to login page
+        setTimeout(() => {
+          navigate("/signin");
+        }, 3000);
+      } catch (error) {
+        if (error.response && error.response.data) {
+          setMessage(error.response.data.message || "Registration failed");
+          setErrors({
+            name: nameError || "Error occurred",
+            email: emailError || "Error occurred",
+            password: passwordError || "Error occurred",
+            confirmPassword: confirmPasswordError || "Error occurred",
+            gender: genderError || "Error occurred",
+          });
+        } else {
+          setMessage("An error occurred during registration");
+        }
+      }
     } else {
       setErrors({
         name: nameError,
         email: emailError,
         password: passwordError,
         confirmPassword: confirmPasswordError,
+        gender: genderError,
       });
+      setMessage(""); // Clear message on validation error
     }
   };
 
@@ -138,6 +204,18 @@ const RegisterPage = () => {
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
             Hospital Registration
           </h3>
+          {message && (
+            <div
+              className={`mt-3 alert ${
+                message.includes("successful")
+                  ? "alert-success"
+                  : "alert-danger"
+              }`}
+              role="alert"
+            >
+              {message}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
@@ -243,6 +321,33 @@ const RegisterPage = () => {
                 </div>
               )}
             </div>
+            <div className="mb-4">
+              <label
+                htmlFor="gender"
+                className="form-label"
+                style={{ color: "#6c757d" }}
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                className={`form-control ${errors.gender ? "is-invalid" : ""}`}
+                value={gender}
+                onChange={handleGenderChange}
+              >
+                <option value="">Select your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              {errors.gender && (
+                <div
+                  style={{ position: "absolute", width: "fit-content" }}
+                  className="invalid-feedback"
+                >
+                  {errors.gender}
+                </div>
+              )}
+            </div>
             <div className="form-check mb-4">
               <input
                 className="form-check-input"
@@ -264,6 +369,7 @@ const RegisterPage = () => {
                 Register
               </button>
             </div>
+
             <hr />
             <div className="text-center mt-3">
               <div style={{ color: "#dea94d" }}>
