@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SiPetsathome } from "react-icons/si";
+import useAuth from "../../../hooks/useAuth";
 
 const RegisterPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -21,6 +22,10 @@ const RegisterPage = () => {
   });
   const [message, setMessage] = useState(""); // State for success or error message
   const navigate = useNavigate();
+  let { auth } = useAuth();
+
+  //if there is user navigate to home page
+  auth?.user?.token && navigate("/");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -177,19 +182,19 @@ const RegisterPage = () => {
         confirmPassword: confirmPasswordError,
         gender: genderError,
       });
-      setMessage(""); // Clear message on validation error
+      setMessage(""); // Clear message
     }
   };
 
   return (
     <div
-      className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
+      className={`container-fluid  min-vh-100 d-flex align-items-center justify-content-center ${
         isLoaded ? "fade-in" : ""
       }`}
       style={{ backgroundColor: "#f8f9fa" }}
     >
       <div
-        className={`row shadow-lg formContainer slide-up ${
+        className={`row shadow-lg mt-3 formContainer slide-up ${
           isLoaded ? "slide-up-loaded" : ""
         }`}
         style={{
