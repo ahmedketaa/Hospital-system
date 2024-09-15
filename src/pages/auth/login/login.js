@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const [message, setMessage] = useState(""); // State for success or error message
+  const navigate = useNavigate();
+  let { auth, setAuth } = useAuth();
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // if there is user navigate to home page
+  auth?.user?.token && navigate("/");
 
   const validateEmail = (email) => {
     if (!email) {
@@ -46,13 +53,33 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
 
     if (!emailError && !passwordError) {
-      console.log("Form submitted");
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/patient/signin",
+          { email: email, password: password }
+        );
+        let { token, message, data } = response.data;
+        setMessage(message || "Login successfull!");
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({ token: token, data: data })
+        );
+        setTimeout(() => {
+          setAuth({ user: { token: token, data: data } });
+          navigate("/");
+        }, 2000);
+      } catch (err) {
+        if (err.response && err.response.data) {
+          let { message } = err.response.data;
+          setMessage(message || "Login Faild");
+        }
+      }
     } else {
       setErrors({ email: emailError, password: passwordError });
     }
@@ -63,7 +90,8 @@ const LoginPage = () => {
       className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
         isLoaded ? "fade-in" : ""
       }`}
-      style={{ backgroundColor: "#f8f9fa" }}>
+      style={{ backgroundColor: "#f8f9fa" }}
+    >
       <div
         className={`row shadow-lg formContainer slide-up ${
           isLoaded ? "slide-up-loaded" : ""
@@ -73,18 +101,20 @@ const LoginPage = () => {
           overflow: "hidden",
           maxWidth: "900px",
           width: "100%",
-        }}>
+        }}
+      >
         {/* Image Section */}
         <div
           className={`col-md-6 d-none d-md-block p-0 slide-in ${
             isLoaded ? "slide-in-loaded" : ""
           }`}
-          style={{ zIndex: "100" }}>
+          style={{ zIndex: "100" }}
+        >
           <img
             src="authpage.jpg"
             alt="Hospital"
             className="img-fluid"
-            style={{ height: "100%", objectFit: "cover" }}
+            style={{ height: "100%" }}
           />
         </div>
 
@@ -93,12 +123,25 @@ const LoginPage = () => {
           <h3 className="text-center mb-4" style={{ color: "#232f66" }}>
             Hospital Login
           </h3>
+          {message && (
+            <div
+              className={`mt-3 alert ${
+                message.includes("successful")
+                  ? "alert-success"
+                  : "alert-danger"
+              }`}
+              role="alert"
+            >
+              {message}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 htmlFor="email"
                 className="form-label"
-                style={{ color: "#6c757d" }}>
+                style={{ color: "#6c757d" }}
+              >
                 Email address
               </label>
               <input
@@ -112,7 +155,8 @@ const LoginPage = () => {
               {errors.email && (
                 <small
                   style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback">
+                  className="invalid-feedback"
+                >
                   {errors.email}
                 </small>
               )}
@@ -121,7 +165,8 @@ const LoginPage = () => {
               <label
                 htmlFor="password"
                 className="form-label"
-                style={{ color: "#6c757d" }}>
+                style={{ color: "#6c757d" }}
+              >
                 Password
               </label>
               <input
@@ -137,7 +182,8 @@ const LoginPage = () => {
               {errors.password && (
                 <div
                   style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback">
+                  className="invalid-feedback"
+                >
                   {errors.password}
                 </div>
               )}
@@ -146,21 +192,22 @@ const LoginPage = () => {
               <button
                 style={{ backgroundColor: "#232f66" }}
                 type="submit"
-                className="btn text-white">
+                className="btn text-white"
+              >
                 Login
               </button>
             </div>
             <div className="text-center mt-3">
-              <a href="#" style={{ textDecoration: "none", color: "#dea94d" }}>
+              <Link to="" style={{ textDecoration: "none", color: "#dea94d" }}>
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <hr />
             <div className="text-center">
               <div style={{ textDecoration: "none", color: "#dea94d" }}>
                 New user?{" "}
                 <Link
-                    to="/signup"
+                  to="/signup"
                   style={{ color: "#0088ce", textDecoration: "none" }}
                 >
                   Register now!

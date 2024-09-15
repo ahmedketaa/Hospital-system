@@ -23,7 +23,7 @@ const DoctorProfile = () => {
             <Link className={styles.linkStyle} to={"/"}>
               Home
             </Link>
-            <Link className={styles.linkStyle} to={"/healthcareexpertsv"}>
+            <Link className={styles.linkStyle} to={"/doctors"}>
               &gt;Healthcare Expertsv
             </Link>
             <span className={styles.nowPath}>&gt;Doctor Profile</span>

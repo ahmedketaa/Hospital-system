@@ -17,10 +17,17 @@ import Contact_Us from "./components/Contact_Us/Contact_Us";
 import About_us from "./components/About_us/About_us";
 import Footer from "./components/Footer";
 import NotFound from "./components/404/NotFound";
+import { AuthProvider } from "./context/authContext";
+import useAuth from "./hooks/useAuth";
+import { useEffect } from "react";
 
-function App() {
+function AppRoutes() {
+  let { authLocalStorage } = useAuth();
+  useEffect(() => {
+    authLocalStorage();
+  }, []);
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -39,6 +46,16 @@ function App() {
       </Routes>
       <SubFooter />
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

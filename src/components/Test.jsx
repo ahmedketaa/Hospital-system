@@ -13,12 +13,11 @@ function CustomDivWithSwiper() {
   return (
     <div className="custom-bordered-div">
       <div className="border-top-links">
-        <Link to="#" className="nav-link active">Home</Link>
-        <Link to="#" className="nav-link">Specialties</Link>
-        <Link to="#" className="nav-link">Patient Services</Link>
-        <Link to="#" className="nav-link">Healthcare Expert</Link>
-        <Link to="#" className="nav-link">Facilities</Link>
-        <Link to="#" className="nav-link">Blog</Link>
+        <Link to="" className="nav-link">Home</Link>
+        <Link to="specialty" className="nav-link">Specialties</Link>
+        <Link to="doctors" className="nav-link">Healthcare Expert</Link>
+        <Link to="blogs" className="nav-link">Blogs</Link>
+        <Link to="news" className="nav-link">News</Link>
       </div>
     
       <Swiper
