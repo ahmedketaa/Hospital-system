@@ -1,167 +1,77 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from '../doctorProfle/doctor.module.css'
+// Doctors.jsx
+import React, { useState, useEffect } from 'react';
 import DoctorsPageCard from '../../components/DoctorsPageCard';
+import AppointmentPopup from '../../components/AppointmentPopup';
+import '../../components/popup.css'; // Import the popup styles
+
 export default function Doctors() {
-  const doctorsData = [
-    {
-      photo: 'doctor1.jpg',
-      name: 'Dr. John Doe',
-      specialty: 'Cardiologist',
-      location: 'New York, NY',
-      qualifications: 'MBBS, MD'
-    },
-    {
-      photo: 'doctor2.jpg',
-      name: 'Dr. Jane Smith',
-      specialty: 'Dermatologist',
-      location: 'Los Angeles, CA',
-      qualifications: 'MBBS, MD'
-    },
-    {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-      {
-        photo: 'doctor1.jpg',
-        name: 'Dr. John Doe',
-        specialty: 'Cardiologist',
-        location: 'New York, NY',
-        qualifications: 'MBBS, MD'
-      },
-  ];
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [doctorsData, setDoctorsData] = useState([]);
 
-  const [specialty, setSpecialty] = useState('');
-  const [gender, setGender] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  useEffect(() => {
+    // Fetch the doctors data from the API
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/doctors');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setDoctorsData(result);
+      } catch (error) {
+        console.error('Error fetching doctors data:', error);
+      }
+    };
 
-  const filteredDoctors = doctorsData.filter((doctor) => {
-    return (
-      (specialty ? doctor.specialty === specialty : true) &&
-      (gender ? doctor.gender === gender : true) &&
-      (searchTerm ? doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
-    );
-  });
+    fetchDoctors();
+  }, []);
+
+  const openPopup = (doctor) => {
+    setSelectedDoctor(doctor);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedDoctor(null);
+  };
 
   return (
     <>
-     <div className='px-5 py-3' style={{backgroundColor:"#EEEEEE", color:"#29367D"}}>
-     <div className={styles.pagePath}>
-            <Link className={styles.linkStyle} to={"/"}>
-              Home 
-            </Link>
-            <Link className={styles.nowPath} to={"/doctors"}>
-                &gt; Healthcare Experts
-            </Link>
-          </div>
-            <h5>Doctor Directory / healthcare experts</h5>
-        </div>
-   
-    <div className="doctors-page container">
-       
-      <div className="search-bar row my-4">
-        <input
-          type="text"
-          className="form-control col"
-          placeholder="Search doctor by name..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <select
-          className="form-select col ms-2"
-          value={specialty}
-          onChange={(e) => setSpecialty(e.target.value)}
-        >
-          <option value="">Select Specialty</option>
-          <option value="Cardiologist">Cardiologist</option>
-          <option value="Dermatologist">Dermatologist</option>
-        </select>
-        <select
-          className="form-select col ms-2"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-        >
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <button className="btn btn-warning col ms-2">Search</button>
+      <div className='px-5 py-3' style={{backgroundColor:"#EEEEEE", color:"#29367D"}}>
+        {/* Other content */}
       </div>
 
-      <div className="doctor-cards row">
-        {filteredDoctors.map((doctor, index) => (
-          <div className="col-12 col-md-6 col-lg-4 mb-4" key={index}>
-            <DoctorsPageCard {...doctor} />
-          </div>
-        ))}
+      <div className="doctors-page container">
+        <div className="search-bar row my-4">
+          {/* Search bar implementation */}
+        </div>
+
+        <div className="doctor-cards row">
+          {doctorsData.map((doctor) => (
+            <div className="col-12 col-md-6 col-lg-4 mb-4" key={doctor._id}>
+              <DoctorsPageCard
+                photo={doctor.photo || 'default-photo.jpg'} // Use a default image if photo is not available
+                name={doctor.name}
+                specialty={doctor.specialization}
+                location={doctor.location || 'Location not available'}
+                qualifications={doctor.qualifications || 'Qualifications not available'}
+                onBookAppointment={() => openPopup(doctor)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Render the popup */}
+      {isPopupOpen && (
+        <AppointmentPopup
+          isOpen={isPopupOpen}
+          onClose={closePopup}
+          doctor={selectedDoctor}
+        />
+      )}
     </>
   );
 }
