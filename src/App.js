@@ -20,6 +20,8 @@ import NotFound from "./components/404/NotFound";
 import { AuthProvider } from "./context/authContext";
 import useAuth from "./hooks/useAuth";
 import { useEffect } from "react";
+import ForgotPassword from "./pages/auth/forgotPassword/forgotPassword";
+import ResetPasswordForm from "./pages/auth/resetPassword/resetPassword";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -33,6 +35,8 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword/:token" element={<ResetPasswordForm />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
         <Route path="/specialty" element={<SpecialtiesComponent />} />

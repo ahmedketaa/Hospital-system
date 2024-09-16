@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { SiPetsathome } from "react-icons/si";
 import useAuth from "../../../hooks/useAuth";
 
 const RegisterPage = () => {
@@ -145,10 +144,7 @@ const RegisterPage = () => {
       };
 
       try {
-        const response = await axios.post(
-          `http://localhost:5000/api/patient/signup`,
-          patient
-        );
+        await axios.post(`http://localhost:5000/api/patient/signup`, patient);
         setMessage("Registration successful!");
         // Clear form fields
         setName("");
