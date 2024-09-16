@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 import styles from "./forgotPassword.module.css"; // Custom styles
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ function ForgotPassword() {
     return regex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -24,8 +25,13 @@ function ForgotPassword() {
     } else if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
     } else {
-      setSuccess("email sent successfull, please check your email");
-      setTimeout(() => navigate("/signin"), 3000);
+      try {
+        await axios.post("http://localhost:5000/api/patient/forget", { email });
+        setTimeout(() => navigate("/signin"), 3000);
+        setSuccess("email sent successfull, please check your email");
+      } catch (err) {
+        if (err.response) setError("Email doesn't exist");
+      }
     }
   };
 

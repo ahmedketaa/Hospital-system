@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
 import styles from "./resetPassword.module.css"; // Custom styles
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function ResetPasswordForm() {
   const [password, setPassword] = useState("");
@@ -9,11 +10,10 @@ function ResetPasswordForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   let { token } = useParams();
 
-  useEffect(() => {
-    console.log(token);
-  }, []);
+  useEffect(() => {}, []);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -37,12 +37,21 @@ function ResetPasswordForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!error && password === confirmPassword) {
-      // Handle form submission logic here
-      console.log("Form submitted");
+      try {
+        await axios.post(`http://localhost:5000/api/patient/reset/${token}`, {
+          password,
+        });
+        setSuccess("Password updated successfully");
+        setTimeout(() => {
+          navigate("/signin");
+        }, 2000);
+      } catch (err) {
+        setError("Update failed");
+      }
     }
   };
 
