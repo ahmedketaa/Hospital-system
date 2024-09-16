@@ -198,7 +198,7 @@ const LoginPage = () => {
               </button>
             </div>
             <div className="text-center mt-3">
-              <Link to="" style={{ textDecoration: "none", color: "#dea94d" }}>
+              <Link to="/forgotpassword" style={{ textDecoration: "none", color: "#dea94d" }}>
                 Forgot password?
               </Link>
             </div>
