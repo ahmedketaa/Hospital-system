@@ -1,36 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { RiGraduationCapFill } from "react-icons/ri";
 import styles from "./styles.module.css";
+import { getAllDoctors } from "../../../utilities/api";
 
 const OtherDoctors = () => {
-  let doctors = [
-    {
-      id: 1,
-      image: "https://placehold.co/100x100",
-      name: "Dr. John Doe",
-      speciality: "Cardiologist",
-      location: "New York, NY",
-      education: "Harvard Medical School",
-    },
-    {
-      id: 2,
-      image: "https://placehold.co/100x100",
-      name: "Dr. Jane Smith",
-      speciality: "Dermatologist",
-      location: "Los Angeles, CA",
-      education: "Yale Medical School",
-    },
-    {
-      id: 3,
-      image: "https://placehold.co/100x100",
-      name: "Dr. Emily Clark",
-      speciality: "Pediatrician",
-      location: "Chicago, IL",
-      education: "Stanford Medical School",
-    },
-  ];
+  const [doctors, setDoctors] = useState([]);
+
+
+  useEffect(() => {
+    async function fetchDoctors() {
+      try {
+        const data = await getAllDoctors();
+        data.splice(3)
+        setDoctors(data);
+      } catch (err) {
+      } finally {
+      }
+    }
+
+    fetchDoctors();
+  }, []);
+
 
   return (
     <div className={`mt-5 ${styles.doctorsRow}`}>
@@ -39,21 +31,21 @@ const OtherDoctors = () => {
           <div className={styles.card}>
             <div className={styles.cardContent}>
               <img
-                src={doctor.image}
-                alt={`${doctor.name}'s profile`}
+              src={doctor.gender==="male"?"/male.jpg":"/female.jpeg"}
+              alt={`${doctor.name}'s profile`}
                 className={styles.doctorImage}
               />
               <h4 className={styles.doctorName}>{doctor.name}</h4>
-              <p className={styles.speciality}>{doctor.speciality}</p>
+              <p className={styles.speciality}>{doctor.specialization}</p>
             </div>
             <hr className={styles.separator} />
             <div className={styles.location}>
               <IoLocationOutline />
-              {doctor.location}
+              {doctor.history}
             </div>
             <div className={styles.education}>
               <RiGraduationCapFill />
-              {doctor.education}
+              {doctor.department?.name}
             </div>
             <div className={styles.buttonGroup}>
               <Link

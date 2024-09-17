@@ -18,15 +18,26 @@ import About_us from "./components/About_us/About_us";
 import Footer from "./components/Footer";
 import NotFound from "./components/404/NotFound";
 import NewsDetailsComponent from "./pages/singleNew/NewsDetailsComponent";
+import { AuthProvider } from "./context/authContext";
+import useAuth from "./hooks/useAuth";
+import { useEffect } from "react";
+import ForgotPassword from "./pages/auth/forgotPassword/forgotPassword";
+import ResetPasswordForm from "./pages/auth/resetPassword/resetPassword";
 
-function App() {
+function AppRoutes() {
+  let { authLocalStorage } = useAuth();
+  useEffect(() => {
+    authLocalStorage();
+  }, []);
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword/:token" element={<ResetPasswordForm />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
         <Route path="/specialty" element={<SpecialtiesComponent />} />
@@ -46,6 +57,16 @@ function App() {
       </Routes>
       <SubFooter />
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

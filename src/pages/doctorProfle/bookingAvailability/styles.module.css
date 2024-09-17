@@ -12,7 +12,16 @@
   font-weight: bold;
   text-align: center; 
 }
+.available {
+  background-color: #4caf50 !important; 
+  color: white !important;
+  border-radius: 50% !important;
+  font-weight: bold !important;
+}
 
+.day:not(.available) {
+  cursor: default;
+}
 .bookingTitle h4 {
   font-size: 1.5rem;
   color: white;
