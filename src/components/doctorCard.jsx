@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function DoctorCard({src,text}) {
+export default function DoctorCard({src,text, 'data-aos': dataAos}) {
   return (
-    <div className="col-md-3">
+    <div className="col-md-3" data-aos={dataAos}>
     <div className='position-relative'>
         <div className="image">
             <img className='w-100 rounded-4' src={src} alt="" />
