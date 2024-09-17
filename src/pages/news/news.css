@@ -26,4 +26,9 @@
     color: white !important;
   }
   
+  .text-muted{
+    font-size: 1rem;
+    color: #6c757d; /* Bootstrap's text-muted color */
+    margin-bottom: 1rem;
+  }
   

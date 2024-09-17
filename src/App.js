@@ -17,6 +17,7 @@ import Contact_Us from "./components/Contact_Us/Contact_Us";
 import About_us from "./components/About_us/About_us";
 import Footer from "./components/Footer";
 import NotFound from "./components/404/NotFound";
+import NewsDetailsComponent from "./pages/singleNew/NewsDetailsComponent";
 import { AuthProvider } from "./context/authContext";
 import useAuth from "./hooks/useAuth";
 import { useEffect } from "react";
@@ -41,11 +42,17 @@ function AppRoutes() {
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
+        
+        // ~ Updated
         <Route path="/news" element={<NewsComponent />} />
+        <Route path="/news/:id" element={<NewsDetailsComponent />} />
+        
+        // ~ Updated
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/singleBlog/:id" element={<SingleBlog />} />
+       
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
-        <Route path="/singleBlog" element={<SingleBlog />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <SubFooter />
