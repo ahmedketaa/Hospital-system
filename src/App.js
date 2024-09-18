@@ -45,6 +45,7 @@ function AppRoutes() {
         <Route path="/resetpassword/:token" element={<ResetPasswordForm />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
+      
         <Route path="/profile" element={<PatientProfile />}>
           <Route index element={<ProfileInfo />} />
           <Route path="setting" element={<PatientSetting />} />
@@ -54,11 +55,9 @@ function AppRoutes() {
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
         
-        // ~ Updated
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/news/:id" element={<NewsDetailsComponent />} />
         
-        // ~ Updated
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/singleBlog/:id" element={<SingleBlog />} />
        

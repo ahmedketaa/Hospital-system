@@ -17,7 +17,7 @@ const SpecialtyDetailComponent = () => {
   useEffect(() => {
     const fetchSpecialty = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/getSingleSpecialies/${id}`);
+        const response = await fetch(`http://localhost:5000/api/specialies/${id}`);
         const data = await response.json();
         setSpecialty(data.speciality); // Set the fetched data
         setLoading(false); // Stop loading once the data is fetched

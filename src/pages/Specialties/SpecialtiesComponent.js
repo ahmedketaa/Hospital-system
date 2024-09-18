@@ -8,7 +8,7 @@ const SpecialtiesComponent = () => {
 
     useEffect(() => {
         // Fetch data from the API
-        fetch('http://localhost:5000/getAll/specialies')
+        fetch('http://localhost:5000/api/specialies')
             .then(response => response.json())
             .then(data => {
                 setSpecialties(data.specialies);
@@ -30,7 +30,7 @@ const SpecialtiesComponent = () => {
             <div className="row">
             {Array.isArray(specialties) && specialties.length > 0 ? (
              specialties.map((specialty) => (
-        <div key={specialty.id} className="col-md-4 col-sm-6 mb-4">
+        <div key={specialty._id} className="col-md-4 col-sm-6 mb-4">
             <div className="card">
                 <Link to={`/specialty/${specialty._id}`} className="text-decoration-none">
                     <img src={specialty.image} className="card-img-top" alt={specialty.title} />
