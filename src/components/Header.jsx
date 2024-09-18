@@ -77,7 +77,7 @@ function Header() {
                   onMouseLeave={handleMouseLeave}
                 >
                   <div className="p-1" style={profileContainer}>
-                    <Link style={profileButton}>
+                    <Link to="/profile" style={profileButton}>
                       <i style={icon} className="fa-solid fa-user p-2"></i>
                       {auth?.user?.data?.name}
                     </Link>

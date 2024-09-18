@@ -23,6 +23,11 @@ import useAuth from "./hooks/useAuth";
 import { useEffect } from "react";
 import ForgotPassword from "./pages/auth/forgotPassword/forgotPassword";
 import ResetPasswordForm from "./pages/auth/resetPassword/resetPassword";
+import PatientProfile from "./pages/paitentProfile/patientProfile";
+import ProfileInfo from "./pages/paitentProfile/profileInfo/profleInfo";
+import ProfileAppointment from "./pages/paitentProfile/patientAppointment/profileAppoinment";
+import PatientSetting from "./pages/paitentProfile/patientSetting/patientSetting";
+import PasswordSetting from "./pages/paitentProfile/changePassword/changePassword";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -40,6 +45,12 @@ function AppRoutes() {
         <Route path="/resetpassword/:token" element={<ResetPasswordForm />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
+        <Route path="/profile" element={<PatientProfile />}>
+          <Route index element={<ProfileInfo />} />
+          <Route path="setting" element={<PatientSetting />} />
+          <Route path="appointment" element={<ProfileAppointment />} />
+          <Route path="changepassword" element={<PasswordSetting />} />
+        </Route>
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
         
