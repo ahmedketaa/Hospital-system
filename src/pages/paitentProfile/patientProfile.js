@@ -1,34 +1,68 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavLink } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { NavLink, Outlet } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const PatientProfile = () => {
+  let { auth, logOut } = useAuth();
+  const navLinkColor = "#232f66";
   return (
     <div className="container mt-5 mb-5">
       <div className="row">
         {/* Sidebar */}
-        <nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <nav
+          style={{ minHeight: "50vh" }}
+          className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse border position-relative"
+        >
           <div className="position-sticky pt-3">
-            <h5 className="text-center mt-3">My Info</h5>
+            <h5 style={{ color: "#0088ce" }} className="text-center mt-3">
+              {auth?.user?.data?.name && auth.user.data.name.toUpperCase()}{" "}
+              Profile
+            </h5>
             <ul className="nav flex-column">
               <li className="nav-item">
-                <NavLink className="nav-link" href="#">
+                <NavLink
+                  to="setting"
+                  style={{ color: navLinkColor }}
+                  className="nav-link"
+                >
                   <span data-feather="layers"></span>
-                  Info
+                  <i class="fa-solid fa-pen-to-square"></i> Setting
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" href="#">
+                <NavLink
+                  style={{ color: navLinkColor }}
+                  to="appointment"
+                  className="nav-link"
+                >
                   <span data-feather="clock"></span>
-                  Bending Appointment{" "}
+                  <i class="fa-solid fa-calendar-check"></i> Appointment{" "}
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" href="#">
+                <NavLink
+                  style={{ color: navLinkColor }}
+                  to="changepassword"
+                  className="nav-link"
+                >
                   <span data-feather="clock"></span>
-                  Appointment History
+                  <i class="fa-solid fa-lock"></i> Change Password
                 </NavLink>
+              </li>
+              <li
+                className="nav-ite position-absolute"
+                style={{ bottom: "-100px" }}
+              >
+                <div
+                  style={{ color: navLinkColor }}
+                  onClick={logOut}
+                  className="nav-link"
+                  role="button"
+                >
+                  <span data-feather="clock"></span>
+                  <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </div>
               </li>
             </ul>
           </div>
@@ -36,13 +70,9 @@ const PatientProfile = () => {
 
         {/* Main Content */}
         <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Patient Dashboard</h1>
-          </div>
-
-          <div className="content">
+          <div className="content border">
             {/* Add any main content for the patient here */}
-            <p>Welcome to your patient profile dashboard!</p>
+            <Outlet />
           </div>
         </main>
       </div>
