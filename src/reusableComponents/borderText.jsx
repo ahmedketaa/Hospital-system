@@ -8,7 +8,6 @@ export default function BorderText({t1,t2 ,icon}) {
     <span style={{margin:"0",padding:"0",display:"block",fontSize:"13px"}}>{t2}</span>
     <span className='text-center' style={{position:"absolute",top:"-10px",left:"0",border:"1px solid white", borderRadius:"50%", width:"30px",height:"30px",backgroundColor:"#D8B36A",color:"white"}}>
     <FontAwesomeIcon icon={icon} className="icon" />
-
     </span>
     </div>
   )

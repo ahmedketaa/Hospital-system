@@ -9,7 +9,7 @@ function NewsComponent() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("http://localhost:5000/getAllNews");
+        const response = await fetch("http://localhost:5000/api/news");
         const data = await response.json();
 
         

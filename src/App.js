@@ -29,6 +29,8 @@ function App() {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctorprofile/:id" element={<DoctorProfile />} />
+      
+        // ~ Updated
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
         
