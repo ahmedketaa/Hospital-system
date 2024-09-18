@@ -11,7 +11,7 @@ const SingleBlog = () => {
 
   useEffect(() => {
     // Fetch the single blog using the id from the URL
-    fetch(`http://localhost:5000/getOneBlogs/${id}`)
+    fetch(`http://localhost:5000/api/blogs/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch the blog");
@@ -28,7 +28,7 @@ const SingleBlog = () => {
       });
 
     // Optionally, you can fetch related blogs as well (if there's an API for it)
-    fetch(`http://localhost:5000/getall/blogs`)
+    fetch(`http://localhost:5000/api/blogs`)
       .then((response) => response.json())
       .then((data) => setRelatedBlogs(data.blog.slice(0, 3))) // Get the first 3 blogs as related blogs
       .catch((err) => console.error(err));

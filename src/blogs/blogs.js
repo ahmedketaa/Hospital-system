@@ -11,7 +11,7 @@ const Blogs = () => {
 
   useEffect(() => {
     // Fetch the blogs data from the API
-    fetch("http://localhost:5000/getall/blogs")
+    fetch("http://localhost:5000/api/blogs")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch blogs");
@@ -89,7 +89,7 @@ const Blogs = () => {
       {/* Blog cards */}
       <div className="row row-cols-1 row-cols-md-3 ms-5 g-2">
         {currentBlogs.map((blog) => (
-          <div className="col mx-auto col-12 col-lg-4 col-md-6 mt-5" key={blog.id}>
+          <div className="col mx-auto col-12 col-lg-4 col-md-6 mt-5" key={blog._id}>
             <div className="card" style={{ width: "22rem", border: "none" }}>
               <img
                 src={blog.url}

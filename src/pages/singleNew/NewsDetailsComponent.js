@@ -11,7 +11,7 @@ function NewsDetailsComponent() {
     const fetchNews = async () => {
       try {
         // Fetch the single news article using the ID
-        const response = await fetch(`http://localhost:5000/getSingleNews/${id}`);
+        const response = await fetch(`http://localhost:5000/api/news/${id}`);
         const data = await response.json();
 
 
