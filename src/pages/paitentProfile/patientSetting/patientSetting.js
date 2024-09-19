@@ -1,39 +1,46 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import { UNSAFE_ErrorResponseImpl } from "react-router-dom";
+import axios from "axios";
 
 const PatientSetting = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [errors, setError] = useState("");
-  let { auth } = useAuth();
+  const [errors, setErrors] = useState({
+    emailError: "",
+    nameError: "",
+    phoneError: "",
+  });
+  const [successMessage, setSuccessMessage] = useState("");
+  const [faildMessage, setFaildMessage] = useState("");
+  let { auth, setAuth } = useAuth();
 
   useEffect(() => {
     if (auth?.user?.data) {
       setName(auth.user.data.name);
       setEmail(auth.user.data.email);
+      setPhone(auth.user.data?.phone || "");
     }
-  }, []);
+  }, [auth]);
 
   const handleEmail = (e) => {
-    let regex = /^\w+@\w+\.\w+$/g;
+    let regex = /^\w+@\w+\.\w+$/;
     setEmail(e.target.value);
-    if (e.target.value == "") {
-      setError({ ...errors, emailError: "email is required" });
+    if (!e.target.value) {
+      setErrors((prev) => ({ ...prev, emailError: "Email is required" }));
     } else if (!regex.test(e.target.value)) {
-      setError({ ...errors, emailError: "invalid email" });
+      setErrors((prev) => ({ ...prev, emailError: "Invalid email" }));
     } else {
-      setError({ ...errors, emailError: "" });
+      setErrors((prev) => ({ ...prev, emailError: "" }));
     }
   };
 
   const handleName = (e) => {
     setName(e.target.value);
-    if (e.target.value == "") {
-      setError({ ...errors, nameError: "name is required" });
+    if (!e.target.value) {
+      setErrors((prev) => ({ ...prev, nameError: "Name is required" }));
     } else {
-      setError({ ...errors, nameError: "" });
+      setErrors((prev) => ({ ...prev, nameError: "" }));
     }
   };
 
@@ -41,36 +48,66 @@ const PatientSetting = () => {
     let regex = /^(010|011|012|015)(\d+){8}$/;
     setPhone(e.target.value);
     if (!regex.test(e.target.value)) {
-      setError({ ...errors, phoneError: "invalid number" });
+      setErrors((prev) => ({ ...prev, phoneError: "Invalid phone number" }));
     } else {
-      setError({ ...errors, phoneError: "" });
+      setErrors((prev) => ({ ...prev, phoneError: "" }));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!errors.emailError || !errors.nameError || !errors.phoneError) {
-      let token = auth?.user?.token && auth.user.token;
-      console.log(token);
+
+    if (!errors.emailError && !errors.nameError && !errors.phoneError) {
+      let token = auth?.user?.token;
+      try {
+        const response = await axios.post(
+          `http://localhost:5000/api/patient/updatePatient/${token}`,
+          { email, name, phone }
+        );
+        setSuccessMessage(response.data.message);
+        setFaildMessage("");
+        setAuth({
+          user: { token: response.data.token, data: response.data.data },
+        });
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            token: response.data.token,
+            data: response.data.data,
+          })
+        );
+      } catch (err) {
+        if (err.response && err.response.data) {
+          let { message } = err.response.data;
+          setFaildMessage(message);
+          setSuccessMessage("");
+        }
+      }
     }
   };
 
   return (
     <div>
       <div className="container bg-light p-3 ">
+        {successMessage && (
+          <div className={`alert ${successMessage ? "alert-success" : ""}`}>
+            {successMessage}
+          </div>
+        )}
+        {faildMessage && (
+          <div className={`alert alert-danger`}>{faildMessage}</div>
+        )}
         <form
           onSubmit={handleSubmit}
           className="d-flex  justify-content-center flex-column"
         >
           <div className="position-relative d-flex align-items-center">
-            <label for="name" className="col-2">
+            <label htmlFor="name" className="col-2">
               Full Name*
             </label>
             <input
               id="name"
-              className={`${
-                errors.nameError ? "is-invalid" : "is-valid"
-              } form-control m-3`}
+              className={`${errors.nameError && "is-invalid"} form-control m-3`}
               type="text"
               value={name}
               onChange={handleName}
@@ -89,13 +126,13 @@ const PatientSetting = () => {
             )}
           </div>
           <div className="position-relative d-flex align-items-center">
-            <label for="email" className="col-2">
-              Email Adderss*
+            <label htmlFor="email" className="col-2">
+              Email Address*
             </label>
             <input
               id="email"
               className={`${
-                errors.emailError ? "is-invalid" : "is-valid"
+                errors.emailError && "is-invalid"
               } form-control m-3`}
               type="email"
               value={email}
@@ -115,7 +152,7 @@ const PatientSetting = () => {
             )}
           </div>
           <div className="position-relative d-flex align-items-center">
-            <label for="phone" className="col-2">
+            <label htmlFor="phone" className="col-2">
               Phone Number
             </label>
             <input
@@ -143,10 +180,13 @@ const PatientSetting = () => {
           <div>
             <button
               style={{ backgroundColor: "#232f66" }}
-              className={` ${
+              className={`btn btn-primary col-2 ${
                 (errors.nameError || errors.emailError || errors.phoneError) &&
                 "disabled"
-              } btn btn-primary col-2`}
+              }`}
+              disabled={
+                errors.nameError || errors.emailError || errors.phoneError
+              }
             >
               Save
             </button>

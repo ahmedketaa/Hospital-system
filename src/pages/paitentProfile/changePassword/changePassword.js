@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
 
 const PasswordSetting = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [showConPassword, setShowConPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [faildMessage, setFaildMessage] = useState("");
   let { auth } = useAuth();
 
   const handlePasswordChange = (e) => {
@@ -39,17 +43,57 @@ const PasswordSetting = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
+  const toggleConPasswordVisibility = () => {
+    setShowConPassword(!showConPassword);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!errors.passwordError && !errors.confirmPasswordError) {
       let token = auth?.user?.token && auth.user.token;
-      console.log("Password change submitted", token);
+      if (newPassword.length < 8) {
+        return setErrors({ ...errors, passwordError: "Password is required" });
+      }
+      if (newPassword !== confirmPassword) {
+        return setErrors({
+          ...errors,
+          confirmPasswordError: "Passwords do not match",
+        });
+      } else {
+        try {
+          await axios.post(
+            `http://localhost:5000/api/patient/updatepassword/${token}`,
+            {
+              password: newPassword,
+            }
+          );
+          setFaildMessage("");
+          setSuccessMessage("Password Updated Successfully");
+        } catch (err) {
+          if (err.response && err.response.data) {
+            let { message } = err.response.data;
+            setSuccessMessage("");
+            setFaildMessage(message);
+          }
+        }
+      }
     }
   };
 
   return (
     <div>
       <div className="container bg-light p-3">
+        {successMessage && (
+          <div className={`alert ${successMessage ? "alert-success" : ""}`}>
+            {successMessage}
+          </div>
+        )}
+        {faildMessage && (
+          <div className={`alert ${faildMessage ? "alert-danger" : ""}`}>
+            {faildMessage}
+          </div>
+        )}
+
         <form
           onSubmit={handleSubmit}
           className="d-flex justify-content-center flex-column"
@@ -67,7 +111,7 @@ const PasswordSetting = () => {
               onChange={handlePasswordChange}
             />
             <span
-              style={{ position: "absolute", right: "40px", cursor: "pointer" }}
+              style={{ position: "absolute", right: "60px", cursor: "pointer" }}
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -95,14 +139,14 @@ const PasswordSetting = () => {
               className={`${
                 errors.confirmPasswordError && "is-invalid"
               } form-control m-3`}
-              type={showPassword ? "text" : "password"}
+              type={showConPassword ? "text" : "password"}
               onChange={handleConfirmPasswordChange}
             />
             <span
-              style={{ position: "absolute", right: "40px", cursor: "pointer" }}
-              onClick={togglePasswordVisibility}
+              style={{ position: "absolute", right: "60px", cursor: "pointer" }}
+              onClick={toggleConPasswordVisibility}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showConPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
             {errors.confirmPasswordError && (
               <small
