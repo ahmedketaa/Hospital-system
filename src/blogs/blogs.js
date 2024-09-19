@@ -1,20 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./blogs.css";
-import BlogsData from "./blogs.json";
 import { Link } from "react-router-dom";
+
 const Blogs = () => {
-  const [currentPage, setCurrentPge] = useState(1);
+  const [blogsData, setBlogsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 6;
+
+  useEffect(() => {
+    // Fetch the blogs data from the API
+    fetch("http://localhost:5000/api/blogs")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch blogs");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // If the response is an object with a blogs array, extract the array
+        const blogsArray = Array.isArray(data) ? data : data.blogs;
+        setBlogsData(blogsArray);  // Ensure blogsData is an array
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const BData = BlogsData.slice(firstIndex, lastIndex);
-  const nPage = Math.ceil(BlogsData.length / recordsPerPage);
+  const currentBlogs = blogsData.slice(firstIndex, lastIndex);  // Ensure this is an array
+  const nPage = Math.ceil(blogsData.length / recordsPerPage);
   const numbers = [...Array(nPage + 1).keys()].slice(1);
+
+  if (loading) {
+    return <p>Loading blogs...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <>
       <div className="contImge container-fluid bg-success">
-        {/*img is here as a backGround  */}
+        {/* img is here as a background */}
       </div>
 
       <div className="header container-fluid">
@@ -34,14 +67,15 @@ const Blogs = () => {
                 fontFamily: "-moz-initial",
                 fontSize: "23px",
                 color: "#29367d",
-              }}>
+              }}
+            >
               SAIFEE BLOG
             </p>
           </div>
         </div>
       </div>
 
-      {/* ################ */}
+      {/* Blog content */}
       <div className="w-75 p-5">
         There is a famous proverb stating, “Health is Wealth,” which is
         self-explanatory. Health is an asset to human life, which leads to a
@@ -51,14 +85,12 @@ const Blogs = () => {
         unstable. Staying healthy is about being physically, mentally, and
         socially fit.
       </div>
-      {/*cards */}
-      <div class="row row-cols-1 row-cols-md-3 ms-5 g-2 ">
-        {BData.map((blog) => (
-          <div className="col mx-auto col-12 col-lg-4 col-md-6  mt-5">
-            <div
-              key={blog.id}
-              className="card"
-              style={{ width: "22rem", border: "none" }}>
+
+      {/* Blog cards */}
+      <div className="row row-cols-1 row-cols-md-3 ms-5 g-2">
+        {currentBlogs.map((blog) => (
+          <div className="col mx-auto col-12 col-lg-4 col-md-6 mt-5" key={blog._id}>
+            <div className="card" style={{ width: "22rem", border: "none" }}>
               <img
                 src={blog.url}
                 className="card-img-top"
@@ -80,28 +112,26 @@ const Blogs = () => {
                     fontSize: "22px",
                     fontWeight: "bold",
                     width: "300px",
-                    textOverflow: " ellipsis",
+                    textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
-                  }}>
+                  }}
+                >
                   {blog.title}
                 </h5>
-                <p
-                  className="card-text "
-                  style={{
-                    overflow: "hidden",
-                    height: "77px",
-                  }}>
+                <p className="card-text" style={{ overflow: "hidden", height: "77px" }}>
                   {blog.body}
                 </p>
-                <button to="" className="btn  cardBtn">
+                <Link to={`/singleBlog/${blog._id}`} className="btn cardBtn">
                   READ MORE
-                </button>
+                </Link>          
               </div>
             </div>
           </div>
         ))}
       </div>
-      <nav className=" mt-5 d-flex justify-content-center">
+
+      {/* Pagination */}
+      <nav className="mt-5 d-flex justify-content-center">
         <ul className="pagination">
           <li className="page-item">
             <Link to="" className="page-link" onClick={prePage}>
@@ -111,7 +141,8 @@ const Blogs = () => {
           {numbers.map((n, i) => (
             <li
               className={`page-item ${currentPage === n ? "active" : ""}`}
-              key={i}>
+              key={i}
+            >
               <Link to="" className="page-link" onClick={() => changeCPage(n)}>
                 {n}
               </Link>
@@ -126,19 +157,20 @@ const Blogs = () => {
       </nav>
     </>
   );
+
   function prePage() {
     if (currentPage !== 1) {
-      setCurrentPge(currentPage - 1);
+      setCurrentPage(currentPage - 1);
     }
   }
 
   function changeCPage(id) {
-    setCurrentPge(id);
+    setCurrentPage(id);
   }
 
   function nextPage() {
     if (currentPage !== nPage) {
-      setCurrentPge(currentPage + 1);
+      setCurrentPage(currentPage + 1);
     }
   }
 };
