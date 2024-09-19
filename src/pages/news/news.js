@@ -6,6 +6,15 @@ function NewsComponent() {
   const [newsData, setNewsData] = useState([]); // Ensure initial state is an empty array
   const [loading, setLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 8;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const currentNews = newsData.slice(firstIndex, lastIndex);  // Ensure this is an array
+  const nPage = Math.ceil(newsData.length / recordsPerPage);
+  const numbers = [...Array(nPage + 1).keys()].slice(1);
+
+
   useEffect(() => {
     const fetchNews = async () => {
       try {
@@ -44,7 +53,7 @@ function NewsComponent() {
 
       <div className="row">
         {newsData.length > 0 ? (
-          newsData.map((news) => (
+          currentNews.map((news) => (
             <div key={news._id} className="col-md-3 col-sm-6 mb-3">
               <div className="card bg-white text-dark">
                 <div className="card-body border border-2 rounded">
@@ -70,7 +79,7 @@ function NewsComponent() {
         )}
       </div>
 
-      <nav aria-label="Page navigation example">
+      {/* <nav aria-label="Page navigation example">
         <ul className="pagination justify-content-center">
           <li className="page-item">
             <Link className="page-link" to="#">
@@ -88,9 +97,51 @@ function NewsComponent() {
             </Link>
           </li>
         </ul>
+      </nav> */}
+
+<nav className="mt-5 d-flex justify-content-center">
+        <ul className="pagination">
+          <li className="page-item">
+            <Link to="" className="page-link" onClick={prePage}>
+              Prev
+            </Link>
+          </li>
+          {numbers.map((n, i) => (
+            <li
+              className={`page-item ${currentPage === n ? "active" : ""}`}
+              key={i}
+            >
+              <Link to="" className="page-link" onClick={() => changeCPage(n)}>
+                {n}
+              </Link>
+            </li>
+          ))}
+          <li className="page-item">
+            <Link to="" className="page-link" onClick={nextPage}>
+              Next
+            </Link>
+          </li>
+        </ul>
       </nav>
+
+
     </div>
   );
+  function prePage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== nPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
 }
 
 export default NewsComponent;
