@@ -29,6 +29,7 @@ import ProfileAppointment from "./pages/paitentProfile/patientAppointment/profil
 import PatientSetting from "./pages/paitentProfile/patientSetting/patientSetting";
 import PasswordSetting from "./pages/paitentProfile/changePassword/changePassword";
 import RequireAuth from "./components/requireAuth";
+import BookAppointment from "./pages/bookAppoinment/bookappoint";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -59,15 +60,18 @@ function AppRoutes() {
           <Route path="appointment" element={<ProfileAppointment />} />
           <Route path="changepassword" element={<PasswordSetting />} />
         </Route>
+
+        <Route path="/bookappointment" element={<BookAppointment />} />
+
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
-        
+
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/news/:id" element={<NewsDetailsComponent />} />
-        
+
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/singleBlog/:id" element={<SingleBlog />} />
-       
+
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
         <Route path="*" element={<NotFound />} />
