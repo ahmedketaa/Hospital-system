@@ -6,6 +6,16 @@ const SpecialtiesComponent = () => {
     const [specialties, setSpecialties] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 6;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const currentspecialty = specialties.slice(firstIndex, lastIndex);  // Ensure this is an array
+    const nPage = Math.ceil(specialties.length / recordsPerPage);
+    const numbers = [...Array(nPage + 1).keys()].slice(1);
+  
+
+
     useEffect(() => {
         // Fetch data from the API
         fetch('http://localhost:5000/api/specialies')
@@ -29,7 +39,7 @@ const SpecialtiesComponent = () => {
             <h2 className="text-center mb-4">Specialties</h2>
             <div className="row">
             {Array.isArray(specialties) && specialties.length > 0 ? (
-             specialties.map((specialty) => (
+                currentspecialty.map((specialty) => (
         <div key={specialty._id} className="col-md-4 col-sm-6 mb-4">
             <div className="card">
                 <Link to={`/specialty/${specialty._id}`} className="text-decoration-none">
@@ -48,7 +58,7 @@ const SpecialtiesComponent = () => {
             </div>
 
             {/* Pagination */}
-            <nav aria-label="Page navigation example">
+            {/* <nav aria-label="Page navigation example">
                 <ul className="pagination justify-content-center">
                     <li className="page-item">
                         <Link className="page-link" href="#" aria-label="Previous">
@@ -64,9 +74,53 @@ const SpecialtiesComponent = () => {
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </nav> */}
+
+
+            
+<nav className="mt-5 d-flex justify-content-center">
+        <ul className="pagination">
+          <li className="page-item">
+            <Link to="" className="page-link" onClick={prePage}>
+              Prev
+            </Link>
+          </li>
+          {numbers.map((n, i) => (
+            <li
+              className={`page-item ${currentPage === n ? "active" : ""}`}
+              key={i}
+            >
+              <Link to="" className="page-link" onClick={() => changeCPage(n)}>
+                {n}
+              </Link>
+            </li>
+          ))}
+          <li className="page-item">
+            <Link to="" className="page-link" onClick={nextPage}>
+              Next
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
         </div>
     );
+
+    function prePage() {
+        if (currentPage !== 1) {
+          setCurrentPage(currentPage - 1);
+        }
+      }
+    
+      function changeCPage(id) {
+        setCurrentPage(id);
+      }
+    
+      function nextPage() {
+        if (currentPage !== nPage) {
+          setCurrentPage(currentPage + 1);
+        }
+      }
 };
 
 export default SpecialtiesComponent;
