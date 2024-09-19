@@ -63,7 +63,6 @@ export default function Doctors() {
             <option value="Cardiology">Cardiology</option>
             <option value="Dermatology">Dermatology</option>
             <option value="Orthopedics">Orthopedics</option>
-           
           </select>
           <select
             className="form-select col ms-2"
@@ -85,12 +84,12 @@ export default function Doctors() {
             filteredDoctors.map((doctor) => (
               <div className="col-12 col-md-6 col-lg-4 mb-4" key={doctor._id}>
                 <DoctorsPageCard
-                  photo={doctor.gender==="male"?"/male.jpg":"/female.jpeg"} 
+                  Image={doctor.Image || { secure_url: doctor.gender === "male" ? "/male.jpg" : "/female.jpeg" }} // Use default if no image
                   name={doctor.name}
                   specialty={doctor.specialization}
-                  location={doctor.statistics.patientsTreated}
+                  location={doctor.contactInfo?.email} // Use email as location for demo
                   qualifications={doctor.experience}
-                  id ={doctor._id}
+                  id={doctor._id}
                 />
               </div>
             ))

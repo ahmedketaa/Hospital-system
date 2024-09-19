@@ -50,7 +50,7 @@ const MainProfile = ({ doctor }) => {
       <p className={styles.text}>Statistics:</p>
       <ul className={styles.statisticsList}>
         <li className={styles.statisticsItem}>Successful Surgeries: {doctor.statistics.successfulSurgeries}</li>
-        <li className={styles.statisticsItem}>Patients Treated: {doctor.statistics.patientsTreated}</li>
+        {/* <li className={styles.statisticsItem}>Patients Treated: {doctor.statistics.patientsTreated}</li> */}
       </ul>
       <p className={styles.text}>
         <MdPhone className={styles.icon} /> Phone: {doctor.contactInfo.phone}
