@@ -32,7 +32,7 @@ const MainProfile = ({ doctor }) => {
           </div>
           <div className={styles.profilePhoto}>
             <img
-              src={doctor.gender==="male"?"/male.jpg":"/female.jpeg"}
+              src={doctor.Image?.secure_url}
               alt="Profile"
               className={styles.profileImage}
             />
@@ -47,22 +47,22 @@ const MainProfile = ({ doctor }) => {
       <p className={styles.text}>Gender: {doctor.gender}</p>
       <p className={styles.text}>Date of Birth: {formattedDOB}</p>
       <p className={styles.text}>History: {doctor.history}</p>
-      <p className={styles.text}>Statistics:</p>
-      <ul className={styles.statisticsList}>
-        <li className={styles.statisticsItem}>Successful Surgeries: {doctor.statistics.successfulSurgeries}</li>
-        <li className={styles.statisticsItem}>Patients Treated: {doctor.statistics.patientsTreated}</li>
-      </ul>
+      {/* <p className={styles.text}>Statistics:</p> */}
+      {/* <ul className={styles.statisticsList}>
+        <li className={styles.statisticsItem}>Successful Surgeries: {doctor.statistics?.successfulSurgeries}</li>
+        <li className={styles.statisticsItem}>Patients Treated: {doctor.statistics?.patientsTreated}</li>
+      </ul> */}
       <p className={styles.text}>
-        <MdPhone className={styles.icon} /> Phone: {doctor.contactInfo.phone}
+        <MdPhone className={styles.icon} /> Phone: {doctor.phone}
       </p>
       <p className={styles.text}>
-        <MdEmail className={styles.icon} /> Email: {doctor.contactInfo.email}
+        <MdEmail className={styles.icon} /> Email: {doctor.email}
       </p>
       <p className={styles.text}>
         <MdLocationOn className={styles.icon} /> Location: {doctor.location || "Not provided"}
       </p>
       <p >
-              <MdOutlineWatchLater />Available Dates: <span style={{color:"green"}}> [{formattedAvailableDates || "No availability"} ] </span>
+              <MdOutlineWatchLater className={styles.icon}/>Available Dates: <span style={{color:"green"}}> [{formattedAvailableDates || "No availability"} ] </span>
             </p>
     </div>
         </div>

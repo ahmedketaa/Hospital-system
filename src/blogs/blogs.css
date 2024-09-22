@@ -39,6 +39,7 @@
     font-family: -moz-initial;
     color: #222f66;
     padding: 10px;
+    transition: .3s;
 }
 
 .cardBtn:hover{
