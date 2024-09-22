@@ -36,9 +36,12 @@ const PatientSetting = () => {
   };
 
   const handleName = (e) => {
+    let regex = /^(?!\d+$).+$/;
     setName(e.target.value);
     if (!e.target.value) {
       setErrors((prev) => ({ ...prev, nameError: "Name is required" }));
+    } else if (!regex.test(e.target.value)) {
+      setErrors((prev) => ({ ...prev, nameError: "Invalid name" }));
     } else {
       setErrors((prev) => ({ ...prev, nameError: "" }));
     }

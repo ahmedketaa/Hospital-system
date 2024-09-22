@@ -11,72 +11,70 @@ const PasswordSetting = () => {
   const [showConPassword, setShowConPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [faildMessage, setFaildMessage] = useState("");
-  let { auth } = useAuth();
+  const { auth } = useAuth();
+
+  const validatePassword = (password) => {
+    if (!password) return "Password is required";
+    if (password.length < 8)
+      return "Password must be at least 8 characters long";
+    return "";
+  };
 
   const handlePasswordChange = (e) => {
-    setNewPassword(e.target.value);
-    if (e.target.value === "") {
-      setErrors({ ...errors, passwordError: "Password is required" });
-    } else if (e.target.value.length < 8) {
-      setErrors({
-        ...errors,
-        passwordError: "Password must be more 8 character",
-      });
-    } else {
-      setErrors({ ...errors, passwordError: "" });
-    }
+    const value = e.target.value;
+    setNewPassword(value);
+    setErrors((prev) => ({
+      ...prev,
+      passwordError: validatePassword(value),
+      confirmPasswordError:
+        value !== confirmPassword ? "Passwords do not match" : "",
+    }));
   };
 
   const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (e.target.value !== newPassword) {
-      setErrors({
-        ...errors,
-        confirmPasswordError: "Passwords do not match",
-      });
-    } else {
-      setErrors({ ...errors, confirmPasswordError: "" });
-    }
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setErrors((prev) => ({
+      ...prev,
+      confirmPasswordError:
+        value !== newPassword ? "Passwords do not match" : "",
+    }));
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const toggleConPasswordVisibility = () => {
-    setShowConPassword(!showConPassword);
+    setShowConPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!errors.passwordError && !errors.confirmPasswordError) {
-      let token = auth?.user?.token && auth.user.token;
-      if (newPassword.length < 8) {
-        return setErrors({ ...errors, passwordError: "Password is required" });
+    const passwordError = validatePassword(newPassword);
+    const confirmPasswordError =
+      confirmPassword !== newPassword ? "Passwords do not match" : "";
+
+    if (!passwordError && !confirmPasswordError) {
+      const token = auth?.user?.token;
+      if (!token) {
+        return setFaildMessage("Authentication token is missing.");
       }
-      if (newPassword !== confirmPassword) {
-        return setErrors({
-          ...errors,
-          confirmPasswordError: "Passwords do not match",
-        });
-      } else {
-        try {
-          await axios.post(
-            `http://localhost:5000/api/patient/updatepassword/${token}`,
-            {
-              password: newPassword,
-            }
-          );
-          setFaildMessage("");
-          setSuccessMessage("Password Updated Successfully");
-        } catch (err) {
-          if (err.response && err.response.data) {
-            let { message } = err.response.data;
-            setSuccessMessage("");
-            setFaildMessage(message);
-          }
-        }
+
+      try {
+        await axios.post(
+          `http://localhost:5000/api/patient/updatepassword/${token}`,
+          { password: newPassword }
+        );
+        setSuccessMessage("Password Updated Successfully");
+        setFaildMessage("");
+      } catch (err) {
+        const message = err.response?.data?.message || "An error occurred.";
+        setSuccessMessage("");
+        setFaildMessage(message);
       }
+    } else {
+      setErrors({ passwordError, confirmPasswordError });
     }
   };
 
@@ -84,14 +82,10 @@ const PasswordSetting = () => {
     <div>
       <div className="container bg-light p-3">
         {successMessage && (
-          <div className={`alert ${successMessage ? "alert-success" : ""}`}>
-            {successMessage}
-          </div>
+          <div className="alert alert-success">{successMessage}</div>
         )}
         {faildMessage && (
-          <div className={`alert ${faildMessage ? "alert-danger" : ""}`}>
-            {faildMessage}
-          </div>
+          <div className="alert alert-danger">{faildMessage}</div>
         )}
 
         <form
@@ -104,11 +98,12 @@ const PasswordSetting = () => {
             </label>
             <input
               id="newPassword"
-              className={`${
-                errors.passwordError && "is-invalid"
-              } form-control m-3`}
+              className={`form-control m-3 ${
+                errors.passwordError ? "is-invalid" : ""
+              }`}
               type={showPassword ? "text" : "password"}
               onChange={handlePasswordChange}
+              value={newPassword}
             />
             <span
               style={{ position: "absolute", right: "60px", cursor: "pointer" }}
@@ -136,11 +131,12 @@ const PasswordSetting = () => {
             </label>
             <input
               id="confirmPassword"
-              className={`${
-                errors.confirmPasswordError && "is-invalid"
-              } form-control m-3`}
+              className={`form-control m-3 ${
+                errors.confirmPasswordError ? "is-invalid" : ""
+              }`}
               type={showConPassword ? "text" : "password"}
               onChange={handleConfirmPasswordChange}
+              value={confirmPassword}
             />
             <span
               style={{ position: "absolute", right: "60px", cursor: "pointer" }}
@@ -165,10 +161,11 @@ const PasswordSetting = () => {
           <div>
             <button
               style={{ backgroundColor: "#232f66" }}
-              className={` ${
-                (errors.passwordError || errors.confirmPasswordError) &&
-                "disabled"
-              } btn btn-primary col-2`}
+              className={`btn btn-primary col-2 ${
+                errors.passwordError || errors.confirmPasswordError
+                  ? "disabled"
+                  : ""
+              }`}
             >
               Save Password
             </button>
