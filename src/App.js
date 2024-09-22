@@ -30,6 +30,7 @@ import PatientSetting from "./pages/paitentProfile/patientSetting/patientSetting
 import PasswordSetting from "./pages/paitentProfile/changePassword/changePassword";
 import RequireAuth from "./components/requireAuth";
 import BookAppointment from "./pages/bookAppoinment/bookappoint";
+import AccountVerified from "./confirmationEmail/AccountVerified";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -74,6 +75,8 @@ function AppRoutes() {
 
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
+
+        <Route path="accountverified/:id" element={<AccountVerified />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <SubFooter />
