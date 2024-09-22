@@ -89,11 +89,11 @@ const Blogs = () => {
       {/* Blog cards */}
       <div className="row row-cols-1 row-cols-md-3 ms-5 g-2">
         {currentBlogs.map((blog) => (
-          <div className="col mx-auto col-12 col-lg-4 col-md-6 mt-5" key={blog._id}>
+          <div className="col mx-auto col-12 col-lg-4 col-md-6 mt-5 " key={blog._id}>
             <div className="card" style={{ width: "22rem", border: "none" }}>
               <img
                 src={blog.url}
-                className="card-img-top"
+                className="card-img-top mb-2"
                 alt="img"
                 style={{
                   width: "22rem",

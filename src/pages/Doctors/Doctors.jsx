@@ -85,10 +85,10 @@ export default function Doctors() {
             filteredDoctors.map((doctor) => (
               <div className="col-12 col-md-6 col-lg-4 mb-4" key={doctor._id}>
                 <DoctorsPageCard
-                  photo={doctor.gender==="male"?"/male.jpg":"/female.jpeg"} 
+                  photo={ doctor.Image?.secure_url} 
                   name={doctor.name}
                   specialty={doctor.specialization}
-                  location={doctor.statistics.patientsTreated}
+                  location={doctor?.statistics?.patientsTreated}
                   qualifications={doctor.experience}
                   id ={doctor._id}
                 />
