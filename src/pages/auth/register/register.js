@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons
 
 const RegisterPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,6 +13,7 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [gender, setGender] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -23,16 +25,23 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   let { auth } = useAuth();
 
-  //if there is user navigate to home page
-  auth?.user?.token && navigate("/");
+  // If there is a user, navigate to the home page
+  useEffect(() => {
+    if (auth?.user?.token) {
+      navigate("/");
+    }
+  }, [auth, navigate]);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
   const validateName = (name) => {
+    let regex = /^(?!\d+$).+$/;
     if (!name) {
       return "Full name is required";
+    } else if (!regex.test(name)) {
+      return "Invalid name";
     }
     return "";
   };
@@ -120,6 +129,10 @@ const RegisterPage = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  const handleConShowPasswordToggle = () => {
+    setShowConfirmPass((prevShowPassword) => !prevShowPassword);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -152,7 +165,7 @@ const RegisterPage = () => {
         setPassword("");
         setConfirmPassword("");
         setGender("");
-        // navigate to login page
+        // Navigate to login page
         setTimeout(() => {
           navigate("/signin");
         }, 3000);
@@ -184,7 +197,7 @@ const RegisterPage = () => {
 
   return (
     <div
-      className={`container-fluid  min-vh-100 d-flex align-items-center justify-content-center ${
+      className={`container-fluid min-vh-100 d-flex align-items-center justify-content-center ${
         isLoaded ? "fade-in" : ""
       }`}
       style={{ backgroundColor: "#f8f9fa" }}
@@ -268,7 +281,8 @@ const RegisterPage = () => {
                 </div>
               )}
             </div>
-            <div className="mb-4">
+            {/* Password Field with Eye Icon */}
+            <div className="mb-4 position-relative">
               <label
                 htmlFor="password"
                 className="form-label"
@@ -276,26 +290,36 @@ const RegisterPage = () => {
               >
                 Password
               </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                className={`form-control ${
-                  errors.password ? "is-invalid" : ""
-                }`}
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              {errors.password && (
-                <div
-                  style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback"
+              <div className="input-group">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className={`form-control ${
+                    errors.password ? "is-invalid" : ""
+                  }`}
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+                <span
+                  className="input-group-text"
+                  onClick={handleShowPasswordToggle}
+                  style={{ cursor: "pointer" }}
                 >
-                  {errors.password}
-                </div>
-              )}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+                {errors.password && (
+                  <div
+                    style={{ position: "absolute", width: "fit-content" }}
+                    className="invalid-feedback"
+                  >
+                    {errors.password}
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="mb-4">
+            {/* Confirm Password Field with Eye Icon */}
+            <div className="mb-4 position-relative">
               <label
                 htmlFor="confirmPassword"
                 className="form-label"
@@ -303,24 +327,33 @@ const RegisterPage = () => {
               >
                 Confirm Password
               </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                className={`form-control ${
-                  errors.confirmPassword ? "is-invalid" : ""
-                }`}
-                id="confirmPassword"
-                placeholder="Confirm your password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-              />
-              {errors.confirmPassword && (
-                <div
-                  style={{ position: "absolute", width: "fit-content" }}
-                  className="invalid-feedback"
+              <div className="input-group">
+                <input
+                  type={showConfirmPass ? "text" : "password"}
+                  className={`form-control ${
+                    errors.confirmPassword ? "is-invalid" : ""
+                  }`}
+                  id="confirmPassword"
+                  placeholder="Confirm your password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                />
+                <span
+                  className="input-group-text"
+                  onClick={handleConShowPasswordToggle}
+                  style={{ cursor: "pointer" }}
                 >
-                  {errors.confirmPassword}
-                </div>
-              )}
+                  {showConfirmPass ? <FaEyeSlash /> : <FaEye />}
+                </span>
+                {errors.confirmPassword && (
+                  <div
+                    style={{ position: "absolute", width: "fit-content" }}
+                    className="invalid-feedback"
+                  >
+                    {errors.confirmPassword}
+                  </div>
+                )}
+              </div>
             </div>
             <div className="mb-4">
               <label
@@ -348,18 +381,6 @@ const RegisterPage = () => {
                   {errors.gender}
                 </div>
               )}
-            </div>
-            <div className="form-check mb-4">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="showPassword"
-                checked={showPassword}
-                onChange={handleShowPasswordToggle}
-              />
-              <label className="form-check-label" htmlFor="showPassword">
-                Show Password
-              </label>
             </div>
             <div className="d-grid">
               <button
