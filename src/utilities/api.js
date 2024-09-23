@@ -31,7 +31,6 @@ export async function apiRequest(endpoint, method = 'GET', body = null) {
 
 export async function getAllDoctors() {
     const doctors = await apiRequest('api/doctors');
-    console.log('All Doctors:', doctors); 
     return doctors;
   }
   export async function getDoctorById(id) {

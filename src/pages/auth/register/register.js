@@ -423,7 +423,7 @@ const RegisterPage = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx='true'>{`
         .fade-in {
           opacity: 0;
           animation: fadeIn 1s forwards;

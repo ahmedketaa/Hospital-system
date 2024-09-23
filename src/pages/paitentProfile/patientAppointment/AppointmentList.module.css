@@ -1,0 +1,79 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+  }
+  
+  .appointmentsScrollContainer {
+    max-height: 400px; /* Set max height for scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: #ffffff; /* White background for scrollable area */
+  }
+  .doctorName {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .specialization {
+    color: #555;
+  }
+  
+  .statusCompleted {
+    color: green;
+  }
+  
+  .statusNotCompleted {
+    color: orange;
+  }
+  
+  .statusCancelled {
+    color: red;
+  }
+  
+  .reportButton {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .reportButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Custom scrollbar */
+  .appointmentsScrollContainer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .appointmentsScrollContainer::-webkit-scrollbar-thumb {
+    background: #222F66; /* Change to your preferred color */
+    border-radius: 10px;
+  }
+  
+  .appointmentsScrollContainer::-webkit-scrollbar-thumb:hover {
+    background: #222F66; /* Darker shade on hover */
+  }
+  
+  .listGroupItem {
+    margin-bottom: 10px;
+    background-color: #f8f9fa; /* Light item background */
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .listGroupItem:hover {
+    background-color: #e2e6ea; /* Darker item background on hover */
+  }
+  

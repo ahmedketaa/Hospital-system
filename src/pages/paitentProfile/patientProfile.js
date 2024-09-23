@@ -27,7 +27,7 @@ const PatientProfile = () => {
                   className="nav-link"
                 >
                   <span data-feather="layers"></span>
-                  <i class="fa-solid fa-pen-to-square"></i> Setting
+                  <i className="fa-solid fa-pen-to-square"></i> Setting
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -37,7 +37,7 @@ const PatientProfile = () => {
                   className="nav-link"
                 >
                   <span data-feather="clock"></span>
-                  <i class="fa-solid fa-calendar-check"></i> Appointment{" "}
+                  <i className="fa-solid fa-calendar-check"></i> Appointment{" "}
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -47,7 +47,7 @@ const PatientProfile = () => {
                   className="nav-link"
                 >
                   <span data-feather="clock"></span>
-                  <i class="fa-solid fa-lock"></i> Change Password
+                  <i className="fa-solid fa-lock"></i> Change Password
                 </NavLink>
               </li>
               <li
@@ -61,7 +61,7 @@ const PatientProfile = () => {
                   role="button"
                 >
                   <span data-feather="clock"></span>
-                  <i class="fa-solid fa-right-from-bracket"></i> Logout
+                  <i className="fa-solid fa-right-from-bracket"></i> Logout
                 </div>
               </li>
             </ul>

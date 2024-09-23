@@ -30,6 +30,10 @@ import PatientSetting from "./pages/paitentProfile/patientSetting/patientSetting
 import PasswordSetting from "./pages/paitentProfile/changePassword/changePassword";
 import RequireAuth from "./components/requireAuth";
 import BookAppointment from "./pages/bookAppoinment/bookappoint";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import AppointmentList from "./pages/paitentProfile/patientAppointment/profileAppoinment";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -58,10 +62,11 @@ function AppRoutes() {
           <Route index element={<ProfileInfo />} />
           <Route path="setting" element={<PatientSetting />} />
           <Route path="appointment" element={<ProfileAppointment />} />
+          <Route path="my-report" element={<AppointmentList />} />
           <Route path="changepassword" element={<PasswordSetting />} />
         </Route>
 
-        <Route path="/bookappointment" element={<BookAppointment />} />
+        <Route path="/bookappointment/:id?" element={<BookAppointment />} />
 
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />

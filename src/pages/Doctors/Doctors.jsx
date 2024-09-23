@@ -90,7 +90,7 @@ export default function Doctors() {
                   specialty={doctor.specialization}
                   location={doctor?.statistics?.patientsTreated}
                   qualifications={doctor.experience}
-                  id ={doctor._id}
+                  doctorId ={doctor._id}
                 />
               </div>
             ))

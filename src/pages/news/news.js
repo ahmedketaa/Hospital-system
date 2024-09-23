@@ -67,7 +67,7 @@ function NewsComponent() {
                     {news.body.substring(0, 100)}...
                   </p>
                   {/* Link to the news details page */}
-                  <div class="card-overlay">
+                  <div className="card-overlay">
                   <Link to={`/news/${news._id}`} className="btn btn-outline-dark read">
                   Read More
                   </Link>

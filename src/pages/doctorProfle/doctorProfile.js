@@ -8,7 +8,7 @@ import { getDoctorById } from "../../utilities/api";
 const DoctorProfile = () => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState(null);
-
+  
   useEffect(() => {
     const fetchDoctor = async () => {
       try {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import { Link } from 'react-router-dom';
 
 export default function SubFooter() {
   useEffect(() => {
@@ -21,8 +22,8 @@ export default function SubFooter() {
             <h4 style={{ color: "#222F66" }}>Make Appointment</h4>
             <p className='text-white'>Looking for professional & trusted medical healthcare?</p>
             <button className='btn mb-2' style={{ backgroundColor: "#222F66", padding: "8px 15px", borderRadius: "20px", color: "white" }}>
-              Make Appointment
-            </button>
+              <Link className='nav-link' to={`/bookappointment`}> Make Appointment</Link>
+            </button>         
           </div>
         </div>
       </div>
