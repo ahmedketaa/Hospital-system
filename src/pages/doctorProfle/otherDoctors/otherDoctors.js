@@ -8,12 +8,11 @@ import { getAllDoctors } from "../../../utilities/api";
 const OtherDoctors = () => {
   const [doctors, setDoctors] = useState([]);
 
-
   useEffect(() => {
     async function fetchDoctors() {
       try {
         const data = await getAllDoctors();
-        data.splice(3)
+        data.splice(3);
         setDoctors(data);
       } catch (err) {
       } finally {
@@ -21,8 +20,8 @@ const OtherDoctors = () => {
     }
 
     fetchDoctors();
+    console.log(doctors);
   }, []);
-
 
   return (
     <div className={`mt-5 ${styles.doctorsRow}`}>
@@ -31,8 +30,8 @@ const OtherDoctors = () => {
           <div className={styles.card}>
             <div className={styles.cardContent}>
               <img
-              src={doctor.gender==="male"?"/male.jpg":"/female.jpeg"}
-              alt={`${doctor.name}'s profile`}
+                src={doctor.Image?.secure_url}
+                alt={`${doctor.name}'s profile`}
                 className={styles.doctorImage}
               />
               <h4 className={styles.doctorName}>{doctor.name}</h4>
@@ -49,7 +48,7 @@ const OtherDoctors = () => {
             </div>
             <div className={styles.buttonGroup}>
               <Link
-                to={`/doctorprofile/${doctor.id}`}
+                to={`/doctorprofile/${doctor._id}`}
                 className={styles.profileButton}
               >
                 Doctor Profile
