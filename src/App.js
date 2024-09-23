@@ -31,9 +31,9 @@ import PasswordSetting from "./pages/paitentProfile/changePassword/changePasswor
 import RequireAuth from "./components/requireAuth";
 import BookAppointment from "./pages/bookAppoinment/bookappoint";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import AppointmentList from "./pages/paitentProfile/patientAppointment/profileAppoinment";
 import AccountVerified from "./confirmationEmail/AccountVerified";
@@ -70,7 +70,15 @@ function AppRoutes() {
           <Route path="changepassword" element={<PasswordSetting />} />
         </Route>
 
-        <Route path="/bookappointment/:id?" element={<BookAppointment />} />
+        <Route
+          path="/bookappointment/:id?"
+          element={
+            <RequireAuth>
+              <BookAppointment />
+            </RequireAuth>
+          }
+        />
+        
 
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />
