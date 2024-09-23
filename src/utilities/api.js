@@ -38,3 +38,8 @@ export async function getAllDoctors() {
     console.log('Doctor Details:', doctor);
     return doctor;
   }
+
+  export async function getDepartments() {
+    const departments = await apiRequest('api/departments'); // Adjust the endpoint as needed
+    return departments.departments;
+  }
