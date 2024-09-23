@@ -46,7 +46,7 @@ export default function Doctors() {
       </div>
 
       <div className="doctors-page container">
-        <div className="search-bar row my-4">
+        <div className="search-bar flex-column flex-md-row gap-3 row my-4">
           <input
             type="text"
             className="form-control col"

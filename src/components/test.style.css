@@ -19,6 +19,9 @@
         .text{
             width: 100%;
         }
+        .border-top-links {
+          display: none !important;
+        }
   }
   .border-top-links {
     position: absolute;

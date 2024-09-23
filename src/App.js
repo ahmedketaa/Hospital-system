@@ -33,6 +33,8 @@ import BookAppointment from "./pages/bookAppoinment/bookappoint";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import AppointmentList from "./pages/paitentProfile/patientAppointment/profileAppoinment";
 import AccountVerified from "./confirmationEmail/AccountVerified";
 import ScrollToTop from "./reusableComponents/scrollTop";
