@@ -63,7 +63,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div style={{overflowX:"hidden"}}>
       <div className="donation-section">
         <Donation />
       </div>

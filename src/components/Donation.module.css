@@ -1,14 +1,21 @@
 .donationWrapper {
   position: fixed;
   top: 50%;
-  right: 10px;
+  right: 20px;
   z-index: 1111;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: fit-content !important;
 }
-
+@media (max-width: 768px) {
+  /* .donationWrapper {
+    position: absolute;
+   right: 0 !important;
+   top: 10px !important;
+  } */
+}
 /* Icon styling for responsiveness */
 .donateIcon {
   font-size: 90px;
@@ -19,13 +26,17 @@
 /* Adjust icon size based on screen width */
 @media (max-width: 768px) {
   .donateIcon {
-    font-size: 70px;
+    font-size: 50px;
   }
 }
 
 @media (max-width: 576px) {
   .donateIcon {
     font-size: 50px;
+  }
+  .donateText{
+    font-size: 1rem !important;
+    margin-top: 2px !important;
   }
 }
 
