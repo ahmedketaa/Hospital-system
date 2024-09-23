@@ -199,7 +199,7 @@ const BookAppointment = ({fromLanding}) => {
               >
                 <option value="">Choose date...</option>
                 {availableDates?.map((date, index) => (
-                  <option key={index} value={date}>{date}</option>
+                  <option key={index} value={date}>{new Date(date).toLocaleDateString()}</option>
                 ))}
               </select>
               {formError && !formData.appointmentDate && <div className="text-danger">Please select a date.</div>}
