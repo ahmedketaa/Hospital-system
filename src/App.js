@@ -34,6 +34,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import AppointmentList from "./pages/paitentProfile/patientAppointment/profileAppoinment";
+import AccountVerified from "./confirmationEmail/AccountVerified";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -79,6 +80,8 @@ function AppRoutes() {
 
         <Route path="/contact_Us" element={<Contact_Us />} />
         <Route path="/about_Us" element={<About_us />} />
+
+        <Route path="accountverified/:id" element={<AccountVerified />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <SubFooter />
