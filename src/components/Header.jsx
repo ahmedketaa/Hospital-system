@@ -51,6 +51,16 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item">
+              <Link to="specialty" className="nav-link" style={{ color: "#222F66" }}>
+                | Specialties
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/blogs" style={{ color: "#222F66" }}>
+                  | Blogs
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/about_Us" style={{ color: "#222F66" }}>
                   | About Us
                 </Link>

@@ -23,7 +23,7 @@ const SecondSection = () => {
           </h3>
           <div className='d-flex justify-content-center align-items-center text-center'>
             <p className='my-2' style={{ color: "#606060", fontFamily: "arial", width: "60%", textAlign: "center", margin: "auto", fontSize: "14px" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper ultrices sed adipiscing malesuada aliquam nisl fusce sit. Scelerisque suspendisse feugiat lectus nulla ullamcorper porttitor purus enim. Volutpat mattis amet semper volutpat odio. Risus faucibus interdum volutpat nibh venenatis.
+            At Saifee Hospital, we are dedicated to providing top-quality healthcare services through our specialized centers of excellence. These centers combine advanced medical technology, highly skilled specialists, and compassionate care to ensure the best outcomes for our patients.
             </p>
           </div>
         </div>

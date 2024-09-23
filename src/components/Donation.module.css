@@ -1,15 +1,63 @@
+.donationWrapper {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  z-index: 1111;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Icon styling for responsiveness */
+.donateIcon {
+  font-size: 90px;
+  color: #ee6b6e;
+  cursor: pointer;
+}
+
+/* Adjust icon size based on screen width */
+@media (max-width: 768px) {
+  .donateIcon {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 576px) {
+  .donateIcon {
+    font-size: 50px;
+  }
+}
+
+/* Text styling */
+.donateText {
+  color: #DEAA4E;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+/* Donation image */
+.donationImage {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Wallet list */
 .walletList {
-    list-style: none;
-    padding-left: 0;
-  }
-  
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.walletItem {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* Media queries for smaller devices */
+@media (max-width: 768px) {
   .walletItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    font-size: 1rem;
   }
-  
-  .walletItem svg {
-    margin-right: 10px;
-  }
-  
+}

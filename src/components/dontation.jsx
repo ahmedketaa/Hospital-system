@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { BiSolidDonateHeart } from 'react-icons/bi';
 import { Modal } from 'react-bootstrap';
-import { FaMoneyBillWave,  FaRegCreditCard } from 'react-icons/fa';
+import { FaMoneyBillWave, FaRegCreditCard } from 'react-icons/fa';
 import { SiVodafone } from "react-icons/si";
-
 import { GiWallet } from 'react-icons/gi';
 import styles from './Donation.module.css'; 
 
@@ -14,22 +13,24 @@ function Donation() {
   const handleCloseModal = () => setShowModal(false);
 
   return (
-    <div style={{ zIndex: '1111', position: 'fixed', top: '50%', right: '10px' }}>
+    <div className={`text-center ${styles.donationWrapper}`}>
       <BiSolidDonateHeart
-        style={{ fontSize: '90px', color: '#ee6b6e', cursor: 'pointer' }}
+        className={styles.donateIcon}
         onClick={handleOpenModal}
       />
-      <p style={{ color: '#DEAA4E' }}>Donate For Us</p>
+      <p className={styles.donateText}>Donate For Us</p>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Donate to Support Us</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="image text-center d-flex justify-content-center">
-          <img src="/donate.jpeg" alt="" />
+            <img src="/donate.jpeg" alt="Donation" className={styles.donationImage}/>
           </div>
-          <p>We appreciate your generous donation. Every contribution helps us achieve our mission.</p>
+          <p className="text-center">
+            We appreciate your generous donation. Every contribution helps us achieve our mission.
+          </p>
           <div>
             <p>You Can Donate Via:</p>
             <ul className={styles.walletList}>
