@@ -78,7 +78,6 @@ function AppRoutes() {
             </RequireAuth>
           }
         />
-        
 
         <Route path="/specialty" element={<SpecialtiesComponent />} />
         <Route path="/specialty/:id" element={<SpecialtyDetailComponent />} />

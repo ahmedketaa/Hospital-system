@@ -1,39 +1,41 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Toast } from 'primereact/toast';
-import styles from './BookAppointment.module.css';
-import useAuth from '../../hooks/useAuth';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { Toast } from "primereact/toast";
+import styles from "./BookAppointment.module.css";
+import useAuth from "../../hooks/useAuth";
 
-const BookAppointment = ({fromLanding}) => {
+const BookAppointment = ({ fromLanding }) => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState(null);
   const [departments, setDepartments] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [availableDates, setAvailableDates] = useState([]);
   const [formData, setFormData] = useState({
-    doctorId: '',
-    department: '',
-    appointmentDate: '',
-    time: '',
+    doctorId: "",
+    department: "",
+    appointmentDate: "",
+    time: "",
   });
-  const [formError, setFormError] = useState('');
+  const [formError, setFormError] = useState("");
   const toast = useRef(null);
   const { auth } = useAuth();
   const doctorId = id;
-
+  const navigate = useNavigate();
   // Fetch all departments
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/departments');
+        const res = await axios.get("http://localhost:5000/api/departments");
         const allDepartments = res.data?.departments || [];
 
         // Filter departments with available doctors
         const departmentsWithDoctors = await Promise.all(
           allDepartments.map(async (dept) => {
-            const doctorRes = await axios.get(`http://localhost:5000/api/doctors?department=${dept.name}`);
+            const doctorRes = await axios.get(
+              `http://localhost:5000/api/doctors?department=${dept.name}`
+            );
             if (doctorRes.data.length > 0) {
               return dept; // Return the department if it has doctors
             }
@@ -56,14 +58,16 @@ const BookAppointment = ({fromLanding}) => {
     if (doctorId) {
       const fetchDoctor = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/api/doctors/${doctorId}`);
+          const res = await axios.get(
+            `http://localhost:5000/api/doctors/${doctorId}`
+          );
           const doctorData = res.data;
           setDoctor(doctorData);
           setAvailableDates(doctorData.availableDates);
           setFormData({
             ...formData,
             doctorId: doctorData._id,
-            department: doctorData.department.name, 
+            department: doctorData.department.name,
           });
         } catch (error) {
           console.error(error);
@@ -77,63 +81,80 @@ const BookAppointment = ({fromLanding}) => {
   // Fetch doctors when department is selected
   useEffect(() => {
     if (selectedDepartment) {
-      axios.get(`http://localhost:5000/api/doctors?department=${selectedDepartment}`)
-        .then(res => setDoctors(res.data))
-        .catch(err => console.log(err));
+      axios
+        .get(
+          `http://localhost:5000/api/doctors?department=${selectedDepartment}`
+        )
+        .then((res) => setDoctors(res.data))
+        .catch((err) => console.log(err));
     }
   }, [selectedDepartment]);
 
   // Handle doctor selection to fetch doctor details
   const handleDoctorChange = (id) => {
     setFormData({ ...formData, doctorId: id });
-    axios.get(`http://localhost:5000/api/doctors/${id}`)
-      .then(res => {
+    axios
+      .get(`http://localhost:5000/api/doctors/${id}`)
+      .then((res) => {
         setDoctor(res.data);
         setAvailableDates(res.data.availableDates);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
+    if (!auth?.user?.data?.email) {
+      navigate("/signin");
+    }
     e.preventDefault();
     const { doctorId, department, appointmentDate, time } = formData;
 
     if (!doctorId || !department || !appointmentDate || !time) {
-      setFormError('All fields are required.');
+      setFormError("All fields are required.");
       return;
     }
 
-    axios.post('http://localhost:5000/api/appointments/book', {
-      doctorID: doctorId,
-      department,
-      date: appointmentDate,
-      time,
-      patientEmail: auth?.user?.data?.email,
-    })
-      .then(() => {
-        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Appointment booked successfully!', life: 3000 });
-        setFormData({
-          doctorId: '',
-          department: '',
-          appointmentDate: '',
-          time: '',
-        });
-        setFormError('');
+    axios
+      .post("http://localhost:5000/api/appointments/book", {
+        doctorID: doctorId,
+        department,
+        date: appointmentDate,
+        time,
+        patientEmail: auth?.user?.data?.email,
       })
-      .catch(err => {
+      .then(() => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Appointment booked successfully!",
+          life: 3000,
+        });
+        setFormData({
+          doctorId: "",
+          department: "",
+          appointmentDate: "",
+          time: "",
+        });
+        setFormError("");
+      })
+      .catch((err) => {
         console.error(err);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to book appointment.', life: 3000 });
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: "Failed to book appointment.",
+          life: 3000,
+        });
       });
   };
 
   return (
     <div className="container my-5">
       <Toast ref={toast} />
-      {!fromLanding&&<h2 className="mb-4">Book Appointment</h2>}
-      
+      {!fromLanding && <h2 className="mb-4">Book Appointment</h2>}
+
       <form onSubmit={handleSubmit} className={`${styles.formContainer}`}>
-        
         {/* Check if doctorId exists */}
         {doctorId ? (
           <>
@@ -141,48 +162,61 @@ const BookAppointment = ({fromLanding}) => {
             {doctor && (
               <>
                 <h5>Selected Doctor: {doctor.name}</h5>
-                <h6>Department: {doctor.department.name}</h6> {/* Accessing department name directly */}
+                <h6>Department: {doctor.department.name}</h6>{" "}
+                {/* Accessing department name directly */}
               </>
             )}
           </>
         ) : (
           // If no doctorId, show department selection
-          <div className="mb-3" >
-            <label htmlFor="department" className="form-label">Select Department</label>
+          <div className="mb-3">
+            <label htmlFor="department" className="form-label">
+              Select Department
+            </label>
             <select
               id="department"
               className="form-select"
               value={formData.department}
-              onChange={e => {
+              onChange={(e) => {
                 setFormData({ ...formData, department: e.target.value });
                 setSelectedDepartment(e.target.value);
               }}
             >
               <option value="">Choose department...</option>
               {departments?.map((dept, index) => (
-                <option key={index} value={dept.name}>{dept.name}</option>
+                <option key={index} value={dept.name}>
+                  {dept.name}
+                </option>
               ))}
             </select>
-            {formError && !formData.department && <div className="text-danger">Please select a department.</div>}
+            {formError && !formData.department && (
+              <div className="text-danger">Please select a department.</div>
+            )}
           </div>
         )}
 
         {/* If doctorId is not present, show doctor selection */}
         {!doctorId && selectedDepartment && (
           <div className="mb-3">
-            <label htmlFor="doctor" className="form-label">Select Doctor</label>
+            <label htmlFor="doctor" className="form-label">
+              Select Doctor
+            </label>
             <select
               id="doctor"
               className="form-select"
               value={formData.doctorId}
-              onChange={e => handleDoctorChange(e.target.value)}
+              onChange={(e) => handleDoctorChange(e.target.value)}
             >
               <option value="">Choose doctor...</option>
               {doctors?.map((doc, index) => (
-                <option key={index} value={doc._id}>{doc.name}</option>
+                <option key={index} value={doc._id}>
+                  {doc.name}
+                </option>
               ))}
             </select>
-            {formError && !formData.doctorId && <div className="text-danger">Please select a doctor.</div>}
+            {formError && !formData.doctorId && (
+              <div className="text-danger">Please select a doctor.</div>
+            )}
           </div>
         )}
 
@@ -190,28 +224,40 @@ const BookAppointment = ({fromLanding}) => {
         {(doctor || formData.doctorId) && (
           <>
             <div className="mb-3">
-              <label htmlFor="appointmentDate" className="form-label">Select Date</label>
+              <label htmlFor="appointmentDate" className="form-label">
+                Select Date
+              </label>
               <select
                 id="appointmentDate"
                 className="form-select"
                 value={formData.appointmentDate}
-                onChange={e => setFormData({ ...formData, appointmentDate: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, appointmentDate: e.target.value })
+                }
               >
                 <option value="">Choose date...</option>
                 {availableDates?.map((date, index) => (
-                  <option key={index} value={date}>{new Date(date).toLocaleDateString()}</option>
+                  <option key={index} value={date}>
+                    {new Date(date).toLocaleDateString()}
+                  </option>
                 ))}
               </select>
-              {formError && !formData.appointmentDate && <div className="text-danger">Please select a date.</div>}
+              {formError && !formData.appointmentDate && (
+                <div className="text-danger">Please select a date.</div>
+              )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="appointmentTime" className="form-label">Select Time</label>
+              <label htmlFor="appointmentTime" className="form-label">
+                Select Time
+              </label>
               <select
                 id="appointmentTime"
                 className="form-select"
                 value={formData.time}
-                onChange={e => setFormData({ ...formData, time: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
               >
                 <option value="">Choose time...</option>
                 <option value="09:00">09:00 AM</option>
@@ -219,12 +265,16 @@ const BookAppointment = ({fromLanding}) => {
                 <option value="11:00">11:00 AM</option>
                 {/* Add more time options as necessary */}
               </select>
-              {formError && !formData.time && <div className="text-danger">Please select a time.</div>}
+              {formError && !formData.time && (
+                <div className="text-danger">Please select a time.</div>
+              )}
             </div>
           </>
         )}
 
-        <button type="submit" className="btn btn-primary">Book Appointment</button>
+        <button type="submit" className="btn btn-primary">
+          Book Appointment
+        </button>
 
         {formError && <div className="text-danger mt-3">{formError}</div>}
       </form>
