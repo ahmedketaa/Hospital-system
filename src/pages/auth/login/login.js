@@ -17,8 +17,12 @@ const LoginPage = () => {
   }, []);
 
   // if there is user navigate to home page
-  auth?.user?.token && navigate("/");
-
+  useEffect(() => {
+    if (auth?.user?.token) {
+      navigate("/"); // Navigate if user is authenticated
+    }
+  }, [auth, navigate]);
+  
   const validateEmail = (email) => {
     if (!email) {
       return "Email is required";
@@ -218,7 +222,7 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx='true'>{`
         .fade-in {
           opacity: 0;
           animation: fadeIn 1s forwards;

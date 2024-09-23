@@ -1,0 +1,19 @@
+.header {
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6; /* Light border for separation */
+    margin-bottom: 20px;
+  }
+  
+  .details {
+    padding: 15px;
+    background-color: #f8f9fa; /* Light background for details */
+    border-radius: 5px;
+  }
+  
+  h4 {
+    margin-bottom: 15px;
+  }
+  
+  h5, h6 {
+    margin: 5px 0;
+  }
