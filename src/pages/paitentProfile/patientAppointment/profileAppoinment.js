@@ -13,21 +13,20 @@ const ProfileAppointment = () => {
   const [showModal, setShowModal] = useState(false);
   const toast = React.useRef(null);
 
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      if (auth?.user?.data?.email) {
-        try {
-          const response = await axios.get(`http://localhost:5000/api/appointments/patient/${auth.user.data.email}`);
-          setAppointments(response.data.appointments);
-          console.log("data ",response.data.appointments);
-          
-        } catch (err) {
-          console.error(err);
-          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to load appointments', life: 3000 });
-        }
+  const fetchAppointments = async () => {
+    if (auth?.user?.data?.email) {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/appointments/patient/${auth.user.data.email}`);
+        setAppointments(response.data.appointments);
+        console.log("data ",response.data.appointments);
+        
+      } catch (err) {
+        console.error(err);
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to load appointments', life: 3000 });
       }
-    };
-
+    }
+  };
+  useEffect(() => {
     fetchAppointments();
   }, [auth]);
 
@@ -40,6 +39,7 @@ const ProfileAppointment = () => {
       });
       setAppointments((prev) => prev.filter((appt) => appt._id !== appointmentID));
       toast.current.show({ severity: 'success', summary: 'Success', detail: 'Appointment cancelled successfully', life: 3000 });
+      fetchAppointments()
     } catch (error) {
       console.error('Error cancelling appointment:', error);
       if (error.response) {

@@ -34,10 +34,10 @@ const ThirdSection = () => {
             </div>
             <div className="mb-4">
               <p style={{ color: "#606060", fontFamily: "arial" }}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae itaque nisi illo dolorum neque, maxime labore natus autem aliquid, veritatis perferendis illum quae optio! Ex impedit deleniti necessitatibus nesciunt quaerat!
+                Saifee Hospital is a state-of-the-art healthcare facility dedicated to delivering comprehensive medical services with a patient-centric approach. Our highly qualified professionals are committed to providing advanced treatments and compassionate care to every individual.
               </p>
               <p style={{ color: "#606060", fontFamily: "arial" }}>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. At quo, dolor officiis voluptates eligendi accusantium in optio repellendus fuga facere dignissimos iure maxime molestiae qui autem. Harum dignissimos minima similique.
+                With a focus on innovation and excellence, we offer specialized care across multiple disciplines, ensuring that every patient receives the best possible treatment. From routine checkups to complex surgeries, Saifee Hospital is here to serve your healthcare needs.
               </p>
             </div>
             <div className="d-flex gap-3 mb-4 align-items-center">

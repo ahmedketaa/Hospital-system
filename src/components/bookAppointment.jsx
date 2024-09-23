@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './appointment.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
+import BookAppointment from '../pages/bookAppoinment/bookappoint';
 
 const AppointmentSection = () => {
   useEffect(() => {
@@ -51,7 +52,8 @@ const AppointmentSection = () => {
                 Fill in the details below to book your appointment.
               </p>
             </div>
-            <form>
+            <BookAppointment fromLanding='true'/>
+            {/* <form>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label text-light">
                   Full Name
@@ -106,7 +108,7 @@ const AppointmentSection = () => {
               >
                 Book Now
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>

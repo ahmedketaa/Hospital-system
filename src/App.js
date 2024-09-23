@@ -35,6 +35,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import AppointmentList from "./pages/paitentProfile/patientAppointment/profileAppoinment";
 import AccountVerified from "./confirmationEmail/AccountVerified";
+import ScrollToTop from "./reusableComponents/scrollTop";
 
 function AppRoutes() {
   let { authLocalStorage } = useAuth();
@@ -93,6 +94,7 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>

@@ -5,7 +5,7 @@ import { Toast } from 'primereact/toast';
 import styles from './BookAppointment.module.css';
 import useAuth from '../../hooks/useAuth';
 
-const BookAppointment = () => {
+const BookAppointment = ({fromLanding}) => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState(null);
   const [departments, setDepartments] = useState([]);
@@ -130,7 +130,8 @@ const BookAppointment = () => {
   return (
     <div className="container my-5">
       <Toast ref={toast} />
-      <h2 className="mb-4">Book Appointment</h2>
+      {!fromLanding&&<h2 className="mb-4">Book Appointment</h2>}
+      
       <form onSubmit={handleSubmit} className={`${styles.formContainer}`}>
         
         {/* Check if doctorId exists */}
@@ -146,7 +147,7 @@ const BookAppointment = () => {
           </>
         ) : (
           // If no doctorId, show department selection
-          <div className="mb-3">
+          <div className="mb-3" >
             <label htmlFor="department" className="form-label">Select Department</label>
             <select
               id="department"
