@@ -143,7 +143,7 @@ const BookAppointment = ({ fromLanding }) => {
         toast.current.show({
           severity: "error",
           summary: "Error",
-          detail: "Failed to book appointment.",
+          detail: err?.response?.data.message,
           life: 3000,
         });
       });
