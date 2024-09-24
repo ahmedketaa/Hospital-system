@@ -18,8 +18,8 @@
 }
 /* Icon styling for responsiveness */
 .donateIcon {
-  font-size: 90px;
-  color: #ee6b6e;
+  font-size: 70px;
+  color: #5a61c0;
   cursor: pointer;
 }
 
@@ -71,4 +71,56 @@
   .walletItem {
     font-size: 1rem;
   }
+}
+.donationInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
+}
+
+.donationInput:focus {
+  border-color: #6772E5; /* Change border color on focus */
+  outline: none;
+}
+
+.walletList {
+  list-style: none;
+  padding: 0;
+}
+
+.walletItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.walletItem p {
+  margin: 0 10px 0 0;
+  font-weight: bold;
+}
+
+.stripeButton {
+  background-color: #6772E5;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.stripeButton:hover {
+  background-color: #5a61c0; /* Darken button on hover */
+}
+
+.donationImage {
+  max-width: 100%; /* Ensure responsive image */
+  height: auto;
+  border-radius: 10px; /* Optional: round image corners */
 }
