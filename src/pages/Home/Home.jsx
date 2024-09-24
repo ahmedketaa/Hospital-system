@@ -3,12 +3,14 @@ import CustomDivWithCarousel from '../../components/Test';
 import SecondSection from '../../components/SecondSection';
 import ThirdSection from '../../components/ThirdSection';
 import AppointmentSection from '../../components/bookAppointment';
-import { BiSolidDonateHeart } from 'react-icons/bi';
 import Donation from '../../components/dontation';
-import introJs from 'intro.js'; // Import intro.js
-import 'intro.js/minified/introjs.min.css'; // Import CSS for styling
+import introJs from 'intro.js'; 
+import 'intro.js/minified/introjs.min.css'; 
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 export default function Home() {
+const stripePromise = loadStripe('pk_test_51Pocw9P8naSBg9OwVJjLj7L2MG3b9atQH3bkeFb3tCgMVgHQsnF9oNYwlBInor962LGIgZXzc63vt21tOOVF63EZ00Zeg3G3K5'); 
   
   useEffect(() => {
     // Check if the tour has been completed
@@ -65,7 +67,9 @@ export default function Home() {
   return (
     <div style={{overflowX:"hidden"}}>
       <div className="donation-section">
+      <Elements stripe={stripePromise}>
         <Donation />
+        </Elements>
       </div>
 
       <div className="carousel-section">

@@ -17,6 +17,7 @@ const BookAppointment = ({ fromLanding }) => {
     department: "",
     appointmentDate: "",
     time: "",
+    phone:""
   });
   const [formError, setFormError] = useState("");
   const toast = useRef(null);
@@ -135,6 +136,7 @@ const BookAppointment = ({ fromLanding }) => {
           department: "",
           appointmentDate: "",
           time: "",
+          phone:""
         });
         setFormError("");
       })
@@ -269,6 +271,18 @@ const BookAppointment = ({ fromLanding }) => {
                 <div className="text-danger">Please select a time.</div>
               )}
             </div>
+            <div className="mb-3">
+              <label htmlFor="phone" className="form-label"> Phone Number </label>
+               <input type="tel" id="phone" className="form-control"
+                value={formData.phone}
+                 onChange={(e) => setFormData({ ...formData, phone: e.target.value }) } 
+                 />
+                  {formError && !formData.phone && (
+                     <div className="text-danger">
+                      Phone number is required.
+                      </div> 
+                    )}
+                     </div>
           </>
         )}
 
