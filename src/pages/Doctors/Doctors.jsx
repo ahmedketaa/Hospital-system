@@ -23,6 +23,8 @@ export default function Doctors() {
       try {
         const data = await getAllDoctors();
         setDoctorsData(data);
+        console.log(data);
+        
       } catch (err) {
         setError('Failed to fetch doctors.');
       } finally {
@@ -59,7 +61,7 @@ export default function Doctors() {
   };
 
   useEffect(() => {
-    fetchDepartments(); // Call fetchDepartments when component mounts
+    fetchDepartments();
   }, []);
 
   const filteredDoctors = doctorsData.filter((doctor) => {
@@ -148,6 +150,7 @@ export default function Doctors() {
                   location={doctor?.statistics?.patientsTreated}
                   qualifications={doctor.experience}
                   doctorId={doctor._id}
+                  price={doctor.price}
                 />
               </div>
             ))

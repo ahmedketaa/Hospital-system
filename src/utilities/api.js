@@ -43,3 +43,19 @@ export async function getAllDoctors() {
     const departments = await apiRequest('api/departments'); // Adjust the endpoint as needed
     return departments.departments;
   }
+
+  // Helper function to generate time slots
+export const generateTimeSlots = (start, end, interval) => {
+  const timeSlots = [];
+  let current = start;
+
+  while (current < end) {
+    const hours = Math.floor(current / 60);
+    const minutes = current % 60;
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    timeSlots.push(formattedTime);
+    current += interval;
+  }
+
+  return timeSlots;
+};

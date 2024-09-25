@@ -4,6 +4,7 @@ import axios from "axios";
 import { Toast } from "primereact/toast";
 import styles from "./BookAppointment.module.css";
 import useAuth from "../../hooks/useAuth";
+import { generateTimeSlots } from "../../utilities/api";
 
 const BookAppointment = ({ fromLanding }) => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const BookAppointment = ({ fromLanding }) => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [availableDates, setAvailableDates] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
   const [formData, setFormData] = useState({
     doctorId: "",
     department: "",
@@ -103,6 +105,21 @@ const BookAppointment = ({ fromLanding }) => {
       .catch((err) => console.log(err));
   };
 
+  const handleDateChange = (date) => {
+    const selectedDate = availableDates.find(d => d.date === date);
+    if (selectedDate) {
+      const { fromTime, toTime } = selectedDate; // Get fromTime and toTime
+      const start = convertTimeToMinutes(fromTime); // Convert fromTime to minutes
+      const end = convertTimeToMinutes(toTime); // Convert toTime to minutes
+      const slots = generateTimeSlots(start, end, 30); // Generate time slots
+      setTimeSlots(slots);
+      setFormData({ ...formData, appointmentDate: date, time: "" }); // Reset time selection
+    }
+  };
+  const convertTimeToMinutes = (timeString) => {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return hours * 60 + minutes; // Convert time to total minutes
+  };
   // Handle form submission
   const handleSubmit = (e) => {
     if (!auth?.user?.data?.email) {
@@ -233,14 +250,16 @@ const BookAppointment = ({ fromLanding }) => {
                 id="appointmentDate"
                 className="form-select"
                 value={formData.appointmentDate}
-                onChange={(e) =>
-                  setFormData({ ...formData, appointmentDate: e.target.value })
-                }
+                onChange={(e) => handleDateChange(e.target.value)}
               >
                 <option value="">Choose date...</option>
                 {availableDates?.map((date, index) => (
-                  <option key={index} value={date}>
-                    {new Date(date).toLocaleDateString()}
+                  <option key={index} value={date.date}>
+                     {new Date(date.date).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </option>
                 ))}
               </select>
@@ -254,7 +273,7 @@ const BookAppointment = ({ fromLanding }) => {
                 Select Time
               </label>
               <select
-                id="appointmentTime"
+                id="time"
                 className="form-select"
                 value={formData.time}
                 onChange={(e) =>
@@ -262,10 +281,11 @@ const BookAppointment = ({ fromLanding }) => {
                 }
               >
                 <option value="">Choose time...</option>
-                <option value="09:00">09:00 AM</option>
-                <option value="10:00">10:00 AM</option>
-                <option value="11:00">11:00 AM</option>
-                {/* Add more time options as necessary */}
+                {timeSlots.map((slot, index) => (
+                  <option key={index} value={slot}>
+                    {slot}
+                  </option>
+                ))}
               </select>
               {formError && !formData.time && (
                 <div className="text-danger">Please select a time.</div>

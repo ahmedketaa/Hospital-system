@@ -47,6 +47,7 @@ const OtherDoctors = () => {
               {doctor.department?.name}
             </div>
             <div className={styles.buttonGroup}>
+
               <Link
                 to={`/doctorprofile/${doctor._id}`}
                 className={styles.profileButton}
@@ -54,7 +55,7 @@ const OtherDoctors = () => {
                 Doctor Profile
               </Link>
               <button className={styles.appointmentButton}>
-                Book Appointment
+              <Link className='nav-link' to={`/bookappointment/${doctor._id}`}> Book Appointment</Link>
               </button>
             </div>
           </div>
