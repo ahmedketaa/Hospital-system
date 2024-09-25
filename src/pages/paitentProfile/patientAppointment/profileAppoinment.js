@@ -112,9 +112,9 @@ const ProfileAppointment = () => {
                 <p className="mb-0"><strong>Time:</strong> {appointment.time}</p>
                 <p className={`mb-0 ${getStatusClass(appointment.status)}`}><strong>Status:</strong> {appointment.status}</p>
               </div>
-              <div className='d-flex flex-column'>
+              <div className={`d-flex flex-column `}>
                 <button
-                  className="btn btn-danger"
+                  className={`btn btn-danger ${appointment.status==="cancelled"?' disabled':""}`}
                   onClick={() => confirmCancel(appointment._id, appointment.date)}
                 >
                   Cancel Appointment

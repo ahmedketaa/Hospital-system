@@ -5,10 +5,10 @@ import { MdOutlineWatchLater, MdPhone, MdLocationOn, MdEmail } from "react-icons
 const MainProfile = ({ doctor }) => {
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString.date);
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const dayName = dayNames[date.getDay()];
-    return `${dayName} from 9 AM to 3 PM`; 
+    return `${dayName} from ${dateString.fromTime} to ${dateString.toTime} `; 
   };
 
 
@@ -39,19 +39,19 @@ const MainProfile = ({ doctor }) => {
           </div>
         </div>
         <div className={styles.profileInfo}>
-        <div className={styles.profileDetails}>
+        <div style={{position:"relative"}} className={styles.profileDetails}>
       <h2 className={styles.name}>{doctor.name}</h2>
       <p className={styles.text}>Specialization: {doctor.specialization}</p>
       <p className={styles.text}>Department: {doctor.department?.name ||'not available'}</p>
       <p className={styles.text}>Experience: {doctor.experience} years</p>
       <p className={styles.text}>Gender: {doctor.gender}</p>
       <p className={styles.text}>Date of Birth: {formattedDOB}</p>
-      <p className={styles.text}>History: {doctor.history}</p>
-      {/* <p className={styles.text}>Statistics:</p> */}
-      {/* <ul className={styles.statisticsList}>
-        <li className={styles.statisticsItem}>Successful Surgeries: {doctor.statistics?.successfulSurgeries}</li>
-        <li className={styles.statisticsItem}>Patients Treated: {doctor.statistics?.patientsTreated}</li>
-      </ul> */}
+      <span>History:</span>
+      <textarea  className="w-100 p-2 form-control mb-2" style={{resize:"none",width:"100% !important"}} cols={7} rows={5} disabled>
+        {doctor.history}
+      </textarea>
+      
+   
       <p className={styles.text}>
         <MdPhone className={styles.icon} /> Phone: {doctor.phone}
       </p>
@@ -67,6 +67,7 @@ const MainProfile = ({ doctor }) => {
     </div>
         </div>
       </div> 
+      
       <BookingAvailability availableDates={doctor.availableDates} />
     </div>
   );

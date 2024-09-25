@@ -2,7 +2,7 @@ import React from 'react';
 import './DoctorsPageCard.css'; 
 import { Link } from 'react-router-dom';
 
-export default function DoctorsPageCard({ photo, name, specialty, location, qualifications, doctorId }) {
+export default function DoctorsPageCard({ photo, name, specialty, location, qualifications, doctorId ,price}) {
       
   return (
     <div className="doctor-card shadow">
@@ -13,7 +13,9 @@ export default function DoctorsPageCard({ photo, name, specialty, location, qual
           <p className="doctor-specialty">{specialty}</p>
           <hr />
           <p className="doctor-location">Patients Treated:{location}</p>
-          <p className="doctor-qualifications">Experience: {qualifications}</p>
+          <p className="doctor-qualifications">Experience: {qualifications} years</p>
+          <p className="doctor-qualifications">Examination price: {price}EGP </p>
+
         </div>
       </div>
       <div className="card-footer d-flex justify-content-between">
