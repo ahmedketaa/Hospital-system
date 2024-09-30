@@ -11,27 +11,36 @@ function ForgotPassword() {
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    if (!email) {
+      return "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      return "Email address is invalid";
+    }
+    return "";
+  };
+
+  const handleEmailChange = (e) => {
+    let newEmail = e.target.value;
+    setEmail(newEmail);
+    setError(validateEmail(newEmail));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let emailError = validateEmail(email);
     setError("");
     setSuccess("");
 
-    if (!email) {
-      setError("Email is required.");
-    } else if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-    } else {
+    if (!emailError) {
       try {
         await axios.post("http://localhost:5000/api/patient/forget", { email });
         setTimeout(() => navigate("/signin"), 3000);
-        setSuccess("email sent successfull, please check your email");
+        setSuccess("Email sent successfully, Please check your email");
       } catch (err) {
         if (err.response) setError("Email doesn't exist");
       }
+    } else {
+      setError(emailError);
     }
   };
 
@@ -59,7 +68,7 @@ function ForgotPassword() {
                 error ? styles.invalid : styles.formControl
               }`}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
             />
             {error && (
               <small className={`form-text ${styles.error}`}>{error}</small>
