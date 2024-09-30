@@ -281,8 +281,8 @@ const RegisterPage = () => {
                 </div>
               )}
             </div>
-            {/* Password Field with Eye Icon */}
-            <div className="mb-4 position-relative">
+            {/* Password Field with Eye Icon*/}
+            <div className="mb-4">
               <label
                 htmlFor="password"
                 className="form-label"
@@ -301,6 +301,7 @@ const RegisterPage = () => {
                   value={password}
                   onChange={handlePasswordChange}
                 />
+
                 <span
                   className="input-group-text"
                   onClick={handleShowPasswordToggle}
@@ -310,14 +311,38 @@ const RegisterPage = () => {
                 </span>
                 {errors.password && (
                   <div
-                    style={{ position: "absolute", width: "fit-content" }}
+                    style={{
+                      position: "absolute",
+                      width: "fit-content",
+                    }}
                     className="invalid-feedback"
                   >
                     {errors.password}
                   </div>
                 )}
               </div>
+              {errors.password && (
+                <small
+                  style={{
+                    position: "absolute",
+                    width: "fit-content",
+                  }}
+                  className="text-danger"
+                >
+                  {errors.password}
+                </small>
+              )}
             </div>
+            {errors.password && (
+              <small
+                style={{
+                  width: "fit-content",
+                }}
+                className="invalid-feedback"
+              >
+                {errors.password}
+              </small>
+            )}
             {/* Confirm Password Field with Eye Icon */}
             <div className="mb-4 position-relative">
               <label
@@ -345,15 +370,15 @@ const RegisterPage = () => {
                 >
                   {showConfirmPass ? <FaEyeSlash /> : <FaEye />}
                 </span>
-                {errors.confirmPassword && (
-                  <div
-                    style={{ position: "absolute", width: "fit-content" }}
-                    className="invalid-feedback"
-                  >
-                    {errors.confirmPassword}
-                  </div>
-                )}
               </div>
+              {errors.confirmPassword && (
+                <small
+                  style={{ position: "absolute", width: "fit-content" }}
+                  className="text-danger"
+                >
+                  {errors.confirmPassword}
+                </small>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -423,7 +448,7 @@ const RegisterPage = () => {
         </div>
       </div>
 
-      <style jsx='true'>{`
+      <style jsx="true">{`
         .fade-in {
           opacity: 0;
           animation: fadeIn 1s forwards;
