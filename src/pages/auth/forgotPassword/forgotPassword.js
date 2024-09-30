@@ -10,7 +10,6 @@ function ForgotPassword() {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-
   const validateEmail = (email) => {
     if (!email) {
       return "Email is required";
@@ -28,21 +27,20 @@ function ForgotPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let emailError = validateEmail(email);
     setError("");
     setSuccess("");
 
-    if (!email) {
-      setError("Email is required.");
-    } else if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-    } else {
+    if (!emailError) {
       try {
         await axios.post("http://localhost:5000/api/patient/forget", { email });
         setTimeout(() => navigate("/signin"), 3000);
-        setSuccess("email sent successfull, please check your email");
+        setSuccess("Email sent successfully, Please check your email");
       } catch (err) {
         if (err.response) setError("Email doesn't exist");
       }
+    } else {
+      setError(emailError);
     }
   };
 
