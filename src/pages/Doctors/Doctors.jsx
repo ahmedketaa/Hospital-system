@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default function Doctors() {
   const [doctorsData, setDoctorsData] = useState([]);
-  const [departments, setDepartments] = useState([]); // State for departments
+  const [departments, setDepartments] = useState([]); 
   const [specialty, setSpecialty] = useState('');
   const [gender, setGender] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -106,11 +106,12 @@ export default function Doctors() {
       </div>
 
       <div className="doctors-page container">
-        <div className="search-bar flex-column flex-md-row gap-3 row my-4">
+        <div className="search-bar  flex-column flex-md-row gap-3 row my-4">
           <input
             type="text"
-            className="form-control col"
-            placeholder="Search doctor by name..."
+            aria-label="Search"
+            className=" text-black col"
+            placeholder='Search By Doctor Name...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

@@ -44,6 +44,7 @@ function AppRoutes() {
   useEffect(() => {
     authLocalStorage();
   }, []);
+  
   return (
     <>
       <Header />

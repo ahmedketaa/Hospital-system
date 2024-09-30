@@ -74,14 +74,19 @@ const LoginPage = () => {
           "auth",
           JSON.stringify({ token: token, data: data })
         );
+
+        setMessage(response.response.data.message || "Login Faild");
+        
         setTimeout(() => {
           setAuth({ user: { token: token, data: data } });
           navigate("/");
         }, 2000);
       } catch (err) {
+        
         if (err.response && err.response.data) {
-          let { message } = err.response.data;
-          setMessage(message || "Login Faild");
+          let { messgae } = err.response.data;
+          
+          setMessage(messgae || "Login Faild");
         }
       }
     } else {

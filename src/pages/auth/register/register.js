@@ -158,7 +158,7 @@ const RegisterPage = () => {
 
       try {
         await axios.post(`http://localhost:5000/api/patient/signup`, patient);
-        setMessage("Registration successful!");
+        setMessage("Registration successful! Confirm Your Email and Login");
         // Clear form fields
         setName("");
         setEmail("");
