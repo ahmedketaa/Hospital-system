@@ -44,6 +44,7 @@ function AppRoutes() {
   useEffect(() => {
     authLocalStorage();
   }, []);
+  
   return (
     <>
       <Header />
@@ -63,7 +64,7 @@ function AppRoutes() {
             </RequireAuth>
           }
         >
-          <Route index element={<ProfileInfo />} />
+          <Route index element={<PatientSetting />} />
           <Route path="setting" element={<PatientSetting />} />
           <Route path="appointment" element={<ProfileAppointment />} />
           <Route path="my-report" element={<AppointmentList />} />

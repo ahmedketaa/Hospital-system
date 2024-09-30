@@ -5,6 +5,7 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import useAuth from '../../../hooks/useAuth';
 import styles from './AppointmentList.module.css';
 import ReportModal from './reportModal';
+import { Link } from 'react-router-dom';
 
 const ProfileAppointment = () => {
   const { auth } = useAuth();
@@ -22,7 +23,7 @@ const ProfileAppointment = () => {
         
       } catch (err) {
         console.error(err);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to load appointments', life: 3000 });
+        // toast.current.show({ severity: 'error', summary: 'Error', detail: err.response?.data?.message||'Failed to load appointments', life: 3000 });
       }
     }
   };
@@ -91,6 +92,7 @@ const ProfileAppointment = () => {
         return '';
     }
   };
+console.log(appointments);
 
   return (
     <div className={styles.container}>
@@ -99,7 +101,8 @@ const ProfileAppointment = () => {
       <ConfirmDialog />
       <div className={styles.appointmentsScrollContainer}>
         <ul className="list-group">
-          {appointments.map((appointment) => (
+          {appointments.length>0?
+          appointments.map((appointment) => (
             <li key={appointment._id} className={`list-group-item d-flex justify-content-between align-items-center ${styles.listGroupItem}`}>
               <div>
                 {appointment.doctorID && (
@@ -128,7 +131,14 @@ const ProfileAppointment = () => {
                 </button>
               </div>
             </li>
-          ))}
+          )):
+          <div className='d-flex justify-content-center align-items-center flex-column gap-3'>
+            <h4 className='mt-3'>You Don't have any appointments</h4>
+            <button className='btn mb-2' style={{ backgroundColor: "#222F66", padding: "8px 15px", borderRadius: "20px", color: "white" }}>
+              <Link className='nav-link' to={`/bookappointment`}> Make Appointment Now !</Link>
+            </button>     
+            </div>
+            }
         </ul>
         {selectedReport && (
         <ReportModal
