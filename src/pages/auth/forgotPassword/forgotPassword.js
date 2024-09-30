@@ -10,9 +10,20 @@ function ForgotPassword() {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
+
   const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    if (!email) {
+      return "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      return "Email address is invalid";
+    }
+    return "";
+  };
+
+  const handleEmailChange = (e) => {
+    let newEmail = e.target.value;
+    setEmail(newEmail);
+    setError(validateEmail(newEmail));
   };
 
   const handleSubmit = async (e) => {
@@ -59,7 +70,7 @@ function ForgotPassword() {
                 error ? styles.invalid : styles.formControl
               }`}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
             />
             {error && (
               <small className={`form-text ${styles.error}`}>{error}</small>
