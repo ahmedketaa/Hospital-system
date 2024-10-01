@@ -34,7 +34,7 @@ const ProfileAppointment = () => {
   // Fetch reports associated with appointments
   const fetchReports = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/report'); // Adjust the endpoint as needed
+      const response = await axios.get('http://localhost:5000/api/report'); 
       setReports(response.data.reports);
       console.log("Reports fetched:", response.data.reports);
     } catch (err) {
@@ -44,7 +44,7 @@ const ProfileAppointment = () => {
 
   // Get all reports that match a specific appointment ID
   const getReportsForAppointment = (appointmentID) => {
-    return reports.filter(report => report.appointmentId === appointmentID);
+    return reports.filter(report => report.appointmentId._id === appointmentID);
   };
 
   useEffect(() => {
