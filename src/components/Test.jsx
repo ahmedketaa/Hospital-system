@@ -37,7 +37,9 @@ function CustomDivWithSwiper() {
                     <p>
                     At Saifee Hospital, we are dedicated to providing exceptional healthcare services to our community. Our team of experienced doctors and nurses is committed to ensuring that you receive the best possible care in a compassionate and supportive environment.
                     </p>
-                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>show more</button>
+                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>
+                      <Link className='nav-link' to={`/blogs`}> Show More</Link>
+                    </button>
                 </div>
               
             </div>
@@ -50,7 +52,9 @@ function CustomDivWithSwiper() {
                     <p>
                      With state-of-the-art facilities and a wide range of medical services, we strive to meet all your health needs. Whether you require emergency care, routine check-ups, or specialized treatments, Saifee Hospital is here for you.
                    </p>
-                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>show more</button>
+                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>
+                    <Link className='nav-link' to={`/blogs`}> Show More</Link>
+                    </button>
                 </div>
               
             </div>
@@ -63,7 +67,9 @@ function CustomDivWithSwiper() {
                     <p>
                       With state-of-the-art facilities and a wide range of medical services, we strive to meet all your health needs. Whether you require emergency care, routine check-ups, or specialized treatments, Saifee Hospital is here for you.
                   </p>
-                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>show more</button>
+                    <button className='btn' style={{backgroundColor:"#222F66", padding:"8px 15px",borderRadius:"20px",color:"white"}}>
+                    <Link className='nav-link' to={`/blogs`}> Show More</Link>
+                    </button>
                 </div>
               
             </div>

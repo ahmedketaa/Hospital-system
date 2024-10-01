@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import './third.css';
+import { Link } from 'react-router-dom';
 
 const ThirdSection = () => {
   useEffect(() => {
@@ -54,7 +55,7 @@ const ThirdSection = () => {
               className='btn mb-2'
               style={{ backgroundColor: "#222F66", padding: "8px 15px", borderRadius: "20px", color: "white" }}
             >
-              Show More
+              <Link className='nav-link' to={`/specialty`}> Show More</Link>
             </button>
           </div>
           <div className="col-md-6 text-center" data-aos="fade-left">
