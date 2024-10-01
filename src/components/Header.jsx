@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import SocialIcon from "./socialIcon";
 import useAuth from "../hooks/useAuth";
-import { useState } from "react"; // Import useState for controlling the hover state
+import { Badge } from 'primereact/badge';
+import { useEffect, useState } from "react"; 
+import { io } from "socket.io-client";
 
+const socket = io("http://localhost:5000");
 function Header() {
   let { auth, logOut } = useAuth();
-  
+  const [hasNewReport, setHasNewReport] = useState(false);
+
   // State to control the visibility of the logout button
   const [showLogout, setShowLogout] = useState(false);
   
@@ -17,6 +21,18 @@ function Header() {
   const handleMouseLeave = () => {
     setShowLogout(false);
   };
+
+  useEffect(() => {
+    // Listen for the "newReport" event from the server
+    socket.on("newReport", () => {
+      setHasNewReport(true); // Set notification state to true when a new report is added
+    });
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      socket.off("newReport");
+    };
+  }, []);
 
   return (
     <>
@@ -90,6 +106,13 @@ function Header() {
                     <Link to="/profile" style={profileButton}>
                       <i style={icon} className="fa-solid fa-user p-2"></i>
                       {auth?.user?.data?.name}
+                     
+                    
+                      {hasNewReport && (
+                          <span title="you have new report" style={notificationDot}>
+                          <Badge value="1" severity="danger"></Badge>
+                          </span>
+                      )}
                     </Link>
                   </div>
                   {showLogout && (
@@ -196,6 +219,18 @@ signinButton["&:hover"] = {
 signupButton["&:hover"] = {
   backgroundColor: "#c07a30",
   transform: "scale(1.05)",
+};
+
+const notificationDot = {
+  position: "absolute",
+  top: "-5px",
+  right: "-5px",
+  width: "10px",
+  height: "10px",
+  // backgroundColor: "red",
+  borderRadius: "50%",
+  border: "1px solid white", // Add a white border to make it stand out
+  zIndex: "20",
 };
 
 export default Header;
